@@ -1,5 +1,7 @@
 export default {
-  colors: {},
+  colors: {
+    textPrimary: '#fff',
+  },
 
   breakpoints: {
     md: '600px',

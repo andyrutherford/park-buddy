@@ -30,6 +30,7 @@ const Global = createGlobalStyle`
 		text-decoration: none;
 	}
 	a:visited {
+		color: #fff;
 	}
 	button {
 		cursor: pointer;

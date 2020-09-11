@@ -3,27 +3,45 @@ import styled from 'styled-components';
 
 import LandingCard from '../components/cards/LandingCard';
 
+import background from '../assets/img/landing-bg2.jpg';
+
 const LandingWrapper = styled.div`
-  width: 100%;
-  height: 100vh;
+  height: 90vh;
   padding: 0 2em;
+  color: #fff;
 
   button {
-    padding: 2em;
-    width: 10em;
+    padding: 2em 4em 2em 1em;
+    width: 15em;
+    background: #fff;
+    border: 1px solid black;
   }
 
   .landing-left {
     font-size: 1.5em;
-    padding: 3em 0;
     text-align: center;
   }
 
   .landing-left p {
-    margin: 0.5em 0;
+    margin: 1em 0 2em 0;
   }
 
   .landing-right {
+  }
+
+  .landing-background {
+    background-image: url(${background});
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
   }
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
@@ -33,19 +51,21 @@ const LandingWrapper = styled.div`
     .landing-left {
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: center;
       text-align: left;
       width: 30%;
     }
 
     .landing-left h1 {
-      font-size: 4em;
+      line-height: 1em;
+      font-size: 6em;
+      font-weight: 500;
     }
     .landing-right {
       display: grid;
       grid-template-columns: repeat(auto-fill, 300px);
-      gap: 5em;
-      justify-content: center;
+      gap: 3em;
+      justify-content: flex-end;
       width: 70%;
     }
   }
@@ -57,13 +77,14 @@ const Landing = () => {
       <div className='landing-left'>
         <h1>Explore</h1>
         <p>Explore some of America's most beautiful national parks</p>
-        <button className='btn'>Explore now</button>
+        <button className='btn'>Explore now -></button>
       </div>
       <div className='landing-right'>
         <LandingCard />
         <LandingCard />
         <LandingCard />
       </div>
+      <div className='landing-background'></div>
     </LandingWrapper>
   );
 };
