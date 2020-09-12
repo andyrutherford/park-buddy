@@ -34,6 +34,7 @@ const Global = createGlobalStyle`
 	}
 	button {
 		cursor: pointer;
+		font-family: 'Vollkorn', sans-serif;
 	}
 	ul {
 		list-style-type: none;

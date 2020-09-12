@@ -6,6 +6,7 @@ import Theme from './styles/Theme';
 
 import Navbar from './components/Navbar';
 import Landing from './pages/Landing';
+import Park from './pages/Park';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <div className='container'>
           <Switch>
             <Route path='/' exact component={Landing} />
+            <Route path='/park/:parkId' exact component={Park} />
           </Switch>
         </div>
       </Router>

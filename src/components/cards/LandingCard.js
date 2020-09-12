@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LandingCardWrapper = styled.div`
@@ -51,10 +52,12 @@ const LandingCard = () => {
         <p className='location'>California</p>
       </div>
       <div className='bookmark'>Save</div>
-      <img
-        src='https://source.unsplash.com/random/250x550/?desert'
-        alt='desert'
-      />
+      <Link to='/parks/moj'>
+        <img
+          src='https://source.unsplash.com/random/250x550/?desert'
+          alt='desert'
+        />
+      </Link>
     </LandingCardWrapper>
   );
 };
