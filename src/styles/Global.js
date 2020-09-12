@@ -17,6 +17,7 @@ const Global = createGlobalStyle`
 	  outline: none;
 	}
 	body {
+		background-color: lightgrey;
 		font-family: sans-serif;
 	}
 	h1, h2, h3, h4, h5, h6 {

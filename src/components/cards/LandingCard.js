@@ -52,7 +52,7 @@ const LandingCard = () => {
         <p className='location'>California</p>
       </div>
       <div className='bookmark'>Save</div>
-      <Link to='/parks/moj'>
+      <Link to='/park/moja'>
         <img
           src='https://source.unsplash.com/random/250x550/?desert'
           alt='desert'
