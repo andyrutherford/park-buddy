@@ -14,8 +14,9 @@ const LandingWrapper = styled.div`
   .btn {
     padding: 1em 1.5em;
     width: 12em;
-    background: #fff;
-    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #fff;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,6 +28,7 @@ const LandingWrapper = styled.div`
     height: 2em;
     width: 2em;
     transition: transform 200ms ease-in-out;
+    stroke: #fff;
   }
 
   .btn:hover svg {

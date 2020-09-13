@@ -63,7 +63,7 @@ const Navbar = () => {
       <div className='nav-right'>
         <ul>
           <li className='nav-link'>
-            <Link to='#!'>Home</Link>
+            <Link to='/'>Home</Link>
           </li>
           <li className='nav-link'>
             <Link to='#!'>About</Link>

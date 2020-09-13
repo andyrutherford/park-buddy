@@ -19,6 +19,7 @@ const Global = createGlobalStyle`
 	body {
 		background-color: lightgrey;
 		font-family: sans-serif;
+		margin: 0;
 	}
 	h1, h2, h3, h4, h5, h6 {
         font-family: 'Vollkorn', sans-serif;
@@ -26,6 +27,7 @@ const Global = createGlobalStyle`
     }
     p {
         font-family: 'Open Sans', sans-serif;
+		color: #fff;
     }
 	a {
 		text-decoration: none;
@@ -33,6 +35,7 @@ const Global = createGlobalStyle`
 	a:visited {
 		color: #fff;
 	}
+	a,
 	button {
 		cursor: pointer;
 		font-family: 'Vollkorn', sans-serif;
