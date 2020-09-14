@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as LogoIcon } from '../assets/svg/trees.svg';
 import { ReactComponent as SearchIcon } from '../assets/svg/search.svg';
 
 const NavbarWrapper = styled.div`
@@ -12,6 +13,16 @@ const NavbarWrapper = styled.div`
   align-items: center;
   padding: 1em 2em;
   color: ${(props) => props.theme.colors.textPrimary};
+
+  .nav-left {
+    display: flex;
+    justify-content: center;
+  }
+  .nav-left svg {
+    height: 2em;
+    fill: #fff;
+    margin-right: 0.5em;
+  }
   .nav-right ul {
     display: flex;
     justify-content: space-between;
@@ -58,6 +69,7 @@ const Navbar = () => {
   return (
     <NavbarWrapper>
       <div className='nav-left'>
+        <LogoIcon />
         <h1 className='logo'>National Parks</h1>
       </div>
       <div className='nav-right'>
