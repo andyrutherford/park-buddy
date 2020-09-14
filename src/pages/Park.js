@@ -30,7 +30,7 @@ const ParkWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 500px;
+    height: 600px;
     width: 100%;
     text-align: center;
     color: #fff;
@@ -60,7 +60,6 @@ const ParkWrapper = styled.div`
   }
 
   .btn {
-    display: inline-block;
     padding: 0.5em 1em;
     background: #fff;
     color: #000;
@@ -68,6 +67,7 @@ const ParkWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     font-size: 1.2em;
+    max-width: 165px;
   }
 
   .btn svg {
@@ -80,18 +80,20 @@ const ParkWrapper = styled.div`
     transform: translateX(30%);
   }
 
-  .section-2 .img {
+  .section-2 .row .img {
     display: block;
     margin: auto;
+    height: 400px;
     width: 100%;
-    max-width: 500px;
-    height: 500px;
+    max-width: 800px;
     object-fit: cover;
   }
 
   .secondary-info {
     background: #333;
+    max-width: 400px;
     padding: 2em;
+    margin: auto;
   }
 
   .secondary-info .card-body {
@@ -102,6 +104,30 @@ const ParkWrapper = styled.div`
   .secondary-info .card-body .days {
     text-align: right;
     margin-right: 1em;
+  }
+
+  .section-3 {
+    margin: 0;
+  }
+
+  .directions {
+    background-color: #333;
+    max-width: 1500px;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1em 3em;
+    flex-wrap: wrap;
+    z-index: 1;
+    position: relative;
+  }
+
+  .map {
+    width: 100%;
+    background: #fff;
+    height: 800px;
   }
 
   ${(props) =>
@@ -119,7 +145,7 @@ const ParkWrapper = styled.div`
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
     section {
-      margin: 4em 15%;
+      margin: 4em 10%;
     }
 
     .section-1 > div {
@@ -145,10 +171,24 @@ const ParkWrapper = styled.div`
       width: 75%;
     }
 
-    .section-2 {
+    .section-2 .row {
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .section-2 .row .img {
+      margin: 0;
+      margin-right: 3em;
+      margin-left: 3em;
+      max-width: 50%;
+    }
+
+    .directions {
+      margin: 0;
+      margin-right: auto;
+      margin-bottom: -5em;
+      padding-left: 10%;
     }
   }
 `;
@@ -174,7 +214,8 @@ const Park = () => {
           designation: res.designation,
           description: res.description,
           images: res.images,
-          activities: res.activities,
+          activities: res.activities.map((a) => a.name).slice(0, 20),
+          topics: res.topics.map((t) => t.name).slice(0, 20),
           code: res.parkCode,
           state: res.states,
           url: res.url,
@@ -188,6 +229,10 @@ const Park = () => {
           operatingHours: {
             description: res.operatingHours[0].description,
             days: res.operatingHours[0].standardHours,
+          },
+          directions: {
+            info: res.directionsInfo,
+            url: res.directionsUrl,
           },
         });
         setLoading(false);
@@ -243,8 +288,54 @@ const Park = () => {
         </div>
       </section>
       <section className='section-2'>
-        <img className='img' src={parkInfo.images[1].url} alt={parkInfo.name} />
-        <div className='secondary-info'>
+        <div className='row'>
+          <img
+            className='img'
+            src={parkInfo.images[1].url}
+            alt={parkInfo.name}
+          />
+          <div className='activities'>
+            <h2>Activities</h2>
+            <p>{parkInfo.activities.join(', ')}</p>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='topics'>
+            <h2>Topics</h2>
+            <p>{parkInfo.topics.join(', ')}</p>
+          </div>
+          <img
+            className='img'
+            src={parkInfo.images[2].url}
+            alt={parkInfo.name}
+          />
+        </div>
+      </section>
+      <section className='section-3'>
+        <div className='directions'>
+          <h2>Directions</h2>
+          <p>{parkInfo.directions.info}</p>
+          <div>
+            <a
+              href={parkInfo.directions.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn'
+            >
+              More Info <Arrow />
+            </a>
+          </div>
+        </div>
+        <div className='map'></div>
+      </section>
+    </ParkWrapper>
+  );
+};
+
+export default Park;
+
+{
+  /* <div className='secondary-info'>
           <p>
             Operating Hours{' '}
             <button onClick={() => alert(parkInfo.operatingHours.description)}>
@@ -275,10 +366,5 @@ const Park = () => {
               </ul>
             </div>
           </div>
-        </div>
-      </section>
-    </ParkWrapper>
-  );
-};
-
-export default Park;
+        </div> */
+}
