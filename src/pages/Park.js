@@ -10,11 +10,11 @@ import Map from '../components/Map';
 
 const ParkWrapper = styled.div`
   section {
-    margin: 2em 3em;
+    /* margin: 2em 3em; */
   }
 
   h2 {
-    font-size: clamp(2em, 5vw, 4em);
+    font-size: clamp(2em, 5vw, 3.5em);
   }
 
   p {
@@ -24,7 +24,8 @@ const ParkWrapper = styled.div`
     color: #fff;
     padding: 0.5em 0;
   }
-  .img {
+  .img-1,
+  .img-2 {
     height: 600px;
   }
   .header {
@@ -32,14 +33,14 @@ const ParkWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 600px;
+    height: 800px;
     width: 100%;
     text-align: center;
     color: #fff;
   }
 
   .header h1 {
-    font-size: clamp(3em, 6vw, 6em);
+    font-size: clamp(4.5em, 8vw, 7em);
   }
   .header p {
     font-size: clamp(1em, 2vw, 3em);
@@ -49,7 +50,7 @@ const ParkWrapper = styled.div`
     background-color: #333;
     max-width: 1500px;
     width: 80%;
-    margin: -2em auto;
+    margin: -10em auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -82,12 +83,19 @@ const ParkWrapper = styled.div`
     transform: translateX(30%);
   }
 
-  .section-2 .row .img {
+  .overview,
+  .weather,
+  .activities,
+  .topics {
+    padding: 0 10%;
+  }
+
+  .section-2 .row .img-1,
+  .section-2 .row .img-2 {
     display: block;
-    margin: auto;
     height: 400px;
     width: 100%;
-    max-width: 800px;
+    max-width: ${(props) => props.theme.breakpoints.lg};
     object-fit: cover;
   }
 
@@ -128,8 +136,9 @@ const ParkWrapper = styled.div`
 
   .map {
     width: 100%;
-    background: #fff;
-    height: 800px;
+    background: transparent;
+    height: 600px;
+    padding: 0 1em;
   }
 
   ${(props) =>
@@ -162,6 +171,7 @@ const ParkWrapper = styled.div`
 
     .overview,
     .weather {
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -179,11 +189,22 @@ const ParkWrapper = styled.div`
       justify-content: space-between;
     }
 
-    .section-2 .row .img {
+    .section-2 .row .img-1,
+    .section-2 .row .img-2 {
       margin: 0;
-      margin-right: 3em;
-      margin-left: 3em;
       max-width: 50%;
+    }
+
+    .section-2 .row .img-1 {
+      margin-right: 2em;
+    }
+    .section-2 .row .img-2 {
+      margin-left: 2em;
+    }
+
+    .activities,
+    .topics {
+      padding: 0;
     }
 
     .directions {
@@ -191,6 +212,10 @@ const ParkWrapper = styled.div`
       margin-right: auto;
       margin-bottom: -5em;
       padding-left: 10%;
+    }
+
+    .map {
+      padding: 0;
     }
   }
 `;
@@ -215,6 +240,10 @@ const Park = () => {
           name: res.name,
           designation: res.designation,
           description: res.description,
+          location: {
+            lng: res.longitude,
+            lat: res.latitude,
+          },
           images: res.images,
           activities: res.activities.map((a) => a.name).slice(0, 20),
           topics: res.topics.map((t) => t.name).slice(0, 20),
@@ -292,7 +321,7 @@ const Park = () => {
       <section className='section-2'>
         <div className='row'>
           <img
-            className='img'
+            className='img-1'
             src={parkInfo.images[1].url}
             alt={parkInfo.name}
           />
@@ -307,7 +336,7 @@ const Park = () => {
             <p>{parkInfo.topics.join(', ')}</p>
           </div>
           <img
-            className='img'
+            className='img-2'
             src={parkInfo.images[2].url}
             alt={parkInfo.name}
           />
@@ -329,7 +358,7 @@ const Park = () => {
           </div>
         </div>
         <div className='map'>
-          <Map />
+          <Map coordinates={parkInfo.location} />
         </div>
       </section>
     </ParkWrapper>

@@ -5,8 +5,10 @@ import { default as GlobalStyle } from './styles/Global';
 import Theme from './styles/Theme';
 
 import Navbar from './components/Navbar';
+import Container from './components/Container';
 import Landing from './pages/Landing';
 import Park from './pages/Park';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -14,12 +16,13 @@ const App = () => {
       <Router>
         <GlobalStyle />
         <Navbar />
-        <div className='container'>
+        <Container>
           <Switch>
             <Route path='/' exact component={Landing} />
             <Route path='/park/:parkId' exact component={Park} />
           </Switch>
-        </div>
+        </Container>
+        <Footer />
       </Router>
     </Theme>
   );

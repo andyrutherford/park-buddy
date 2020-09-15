@@ -29,11 +29,8 @@ const Global = createGlobalStyle`
         font-family: 'Open Sans', sans-serif;
 		color: #fff;
     }
-	a {
-		text-decoration: none;
-	}
-	a:visited {
-		color: #fff;
+	a, a:visited {
+		text-decoration: none;color: #fff;
 	}
 	a,
 	button {

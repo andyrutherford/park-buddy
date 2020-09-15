@@ -18,11 +18,11 @@ const MapWrapper = styled.div`
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
-const Map = () => {
+const Map = ({ coordinates }) => {
   const [coords, setCoords] = useState({
-    lng: 5,
-    lat: 34,
-    zoom: 2,
+    lng: coordinates.lng,
+    lat: coordinates.lat,
+    zoom: 10,
   });
 
   let mapContainer = useRef();
@@ -30,7 +30,7 @@ const Map = () => {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainer,
-      style: 'mapbox://styles/mapbox/satellite-v9',
+      style: 'mapbox://styles/mapbox/satellite-streets-v10',
       center: [coords.lng, coords.lat],
       zoom: coords.zoom,
     });
