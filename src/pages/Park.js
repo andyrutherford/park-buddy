@@ -6,6 +6,8 @@ import { fetchPark } from '../utils/fetch';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 
+import Map from '../components/Map';
+
 const ParkWrapper = styled.div`
   section {
     margin: 2em 3em;
@@ -326,7 +328,9 @@ const Park = () => {
             </a>
           </div>
         </div>
-        <div className='map'></div>
+        <div className='map'>
+          <Map />
+        </div>
       </section>
     </ParkWrapper>
   );
