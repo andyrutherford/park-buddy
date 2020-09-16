@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { fetchPark } from '../utils/fetch';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
+import {ReactComponent as NotFound} from '../assets/svg/notfound.svg';
 
 import Map from '../components/Map';
 
@@ -144,17 +145,27 @@ const ParkWrapper = styled.div`
   }
 
   ${(props) =>
-    props &&
+    props.bg1 ==='404' ? 
     css`
       .header {
-        background-image: url(${props.bg1});
+       background-color: #000;
         background-size: cover;
         height: 600px;
         background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;
       }
-    `};
+    ` : 
+      css`
+      .header {
+        background-image: url(${props.bg1});
+        background-size: cover; 
+        height: 600px;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+      }`
+    };
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
     section {
@@ -276,7 +287,7 @@ const Park = () => {
   if (loading) return <h1>Loading</h1>;
 
   return (
-    <ParkWrapper bg1={parkInfo.images[0].url} bg2={parkInfo.images[1].url}>
+    <ParkWrapper bg1={parkInfo.images[0]? parkInfo.images[0].url : '404'}>
       <div className='header'>
         <h1 className='name'>{parkInfo.name}</h1>
         <p className='state'>{parkInfo.designation}</p>
@@ -322,26 +333,26 @@ const Park = () => {
       </section>
       <section className='section-2'>
         <div className='row'>
-          <img
+          {parkInfo.images[1] ? <img
             className='img-1'
             src={parkInfo.images[1].url}
             alt={parkInfo.name}
-          />
+          /> : <NotFound />}
           <div className='activities'>
             <h2>Activities</h2>
-            <p>{parkInfo.activities.join(', ')}</p>
+            <p>{parkInfo.activities.length === 0 ? 'No activities found.' : parkInfo.activities.join(', ')}</p>
           </div>
         </div>
         <div className='row'>
           <div className='topics'>
             <h2>Topics</h2>
-            <p>{parkInfo.topics.join(', ')}</p>
+            <p>{parkInfo.topics.length === 0 ? 'No topics found.' : parkInfo.topics.join(', ')}</p>
           </div>
-          <img
+          {parkInfo.images[2] ? <img
             className='img-2'
             src={parkInfo.images[2].url}
             alt={parkInfo.name}
-          />
+          /> : <NotFound />}
         </div>
       </section>
       <section className='section-3'>

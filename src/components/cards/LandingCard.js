@@ -6,6 +6,9 @@ const LandingCardWrapper = styled.div`
   margin: auto;
   position: relative;
   transition: transform 150ms ease-in-out;
+  height: 500px;
+  width: 250px;
+  font-size: .75em;
 
   :hover {
     transform: scale(1.02);
@@ -36,8 +39,9 @@ const LandingCardWrapper = styled.div`
     transition: opacity 150ms ease-in-out;
   }
   img {
-    max-width: 300px;
+    object-fit: cover;
     width: 100%;
+    height: 100%;
     -webkit-box-shadow: -1px 8px 20px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: -1px 8px 20px 0px rgba(0, 0, 0, 0.5);
     box-shadow: -1px 8px 20px 0px rgba(0, 0, 0, 0.5);
