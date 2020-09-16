@@ -50,7 +50,7 @@ const ParkWrapper = styled.div`
     background-color: #333;
     max-width: 1500px;
     width: 80%;
-    margin: -10em auto;
+    margin: -10em auto 2em auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -88,6 +88,8 @@ const ParkWrapper = styled.div`
   .activities,
   .topics {
     padding: 0 10%;
+    margin-top: 1em;
+    margin-bottom: 2em;
   }
 
   .section-2 .row .img-1,
@@ -123,7 +125,7 @@ const ParkWrapper = styled.div`
   .directions {
     background-color: #333;
     max-width: 1500px;
-    width: 80%;
+    width: 100%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -138,7 +140,7 @@ const ParkWrapper = styled.div`
     width: 100%;
     background: transparent;
     height: 600px;
-    padding: 0 1em;
+    padding: 0;
   }
 
   ${(props) =>

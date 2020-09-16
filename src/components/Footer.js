@@ -36,7 +36,11 @@ const Footer = () => {
       <div>
         <p>National Parks</p>
         <p>
-          Made with 💚 by{' '}
+          Made with{' '}
+          <span role='img' aria-label='heart'>
+            💚
+          </span>{' '}
+          by{' '}
           <a
             href='https://github.com/andyrutherford'
             target='_blank'

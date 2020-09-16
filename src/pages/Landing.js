@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import LandingCard from '../components/cards/LandingCard';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import background from '../assets/img/landing-bg2.jpg';
+
+import { fetchRandomPark } from '../utils/fetch'
 
 const LandingWrapper = styled.div`
   height: 90vh;
@@ -104,6 +106,11 @@ const LandingWrapper = styled.div`
 `;
 
 const Landing = () => {
+
+  useEffect(() => {
+    fetchRandomPark().then(res => console.log(res))
+  }, [])
+
   return (
     <LandingWrapper>
       <div className='landing-left'>

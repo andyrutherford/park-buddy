@@ -70,7 +70,9 @@ const Navbar = () => {
     <NavbarWrapper>
       <div className='nav-left'>
         <LogoIcon />
-        <h1 className='logo'>National Parks</h1>
+        <h1 className='logo'>
+          <Link to='/'>National Parks</Link>
+        </h1>
       </div>
       <div className='nav-right'>
         <ul>

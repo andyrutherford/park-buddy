@@ -44,7 +44,9 @@ const LandingCardWrapper = styled.div`
   }
 `;
 
-const LandingCard = () => {
+const LandingCard = ({
+  img = 'https://source.unsplash.com/random/250x550/?desert',
+}) => {
   return (
     <LandingCardWrapper>
       <div className='info'>
@@ -53,10 +55,7 @@ const LandingCard = () => {
       </div>
       <div className='bookmark'>Save</div>
       <Link to='/park/moja'>
-        <img
-          src='https://source.unsplash.com/random/250x550/?desert'
-          alt='desert'
-        />
+        <img src={img} alt='desert' />
       </Link>
     </LandingCardWrapper>
   );
