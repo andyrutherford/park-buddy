@@ -45,17 +45,18 @@ const LandingCardWrapper = styled.div`
 `;
 
 const LandingCard = ({
-  img = 'https://source.unsplash.com/random/250x550/?desert',
+  park
 }) => {
+  console.log(park);
   return (
     <LandingCardWrapper>
       <div className='info'>
-        <p className='name'>Death Valley</p>
-        <p className='location'>California</p>
+        <p className='name'>{park.name}</p>
+        <p className='location'>{park.address}</p>
       </div>
       <div className='bookmark'>Save</div>
-      <Link to='/park/moja'>
-        <img src={img} alt='desert' />
+      <Link to={`/park/${park.parkCode}`}>
+        <img src={park.images[0].url} alt={park.images[0].altText} />
       </Link>
     </LandingCardWrapper>
   );

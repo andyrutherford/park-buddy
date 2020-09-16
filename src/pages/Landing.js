@@ -107,8 +107,23 @@ const LandingWrapper = styled.div`
 
 const Landing = () => {
 
+  const [parks, setParks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetchRandomPark().then(res => console.log(res))
+    const fetch = async () => {
+      const parks = [];
+      for (let i = 0; i < 3; i++) {
+        try {
+          parks[i] = await fetchRandomPark()
+        } catch (error) {
+          console.log(error);
+        }
+      }    
+      return parks;
+    }
+    fetch().then(res => setParks(res))
+    setLoading(false)
   }, [])
 
   return (
@@ -121,9 +136,11 @@ const Landing = () => {
         </button>
       </div>
       <div className='landing-right'>
-        <LandingCard />
-        <LandingCard />
-        <LandingCard />
+
+            {parks[0] && <LandingCard park={parks[0]} />}
+            {parks[1] && <LandingCard park={parks[1]}  />}
+            {parks[2] && <LandingCard park={parks[2]} />}
+
       </div>
       <div className='landing-background'></div>
     </LandingWrapper>

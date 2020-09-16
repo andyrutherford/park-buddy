@@ -22,6 +22,7 @@ export const fetchRandomPark = async (n) => {
       throw error;
     }
     return {
+      address: json.data[0].addresses[0].city + ', ' + json.data[0].addresses[0].stateCode,
       parkCode: json.data[0].parkCode,
       name: json.data[0].fullName,
       images: json.data[0].images
