@@ -138,6 +138,7 @@ const ParkWrapper = styled.div`
   }
 
   .map {
+    position: relative;
     width: 100%;
     background: transparent;
     height: 600px;
@@ -371,7 +372,7 @@ const Park = () => {
           </div>
         </div>
         <div className='map'>
-          <Map coordinates={parkInfo.location} />
+          {(parkInfo.location.lat !== "" && parkInfo.location.lng !== "") ?<Map coordinates={parkInfo.location} /> : <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>No location data available.</h3>}
         </div>
       </section>
     </ParkWrapper>
