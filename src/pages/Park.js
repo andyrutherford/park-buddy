@@ -6,6 +6,8 @@ import { fetchPark } from '../utils/fetch';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import {ReactComponent as NotFound} from '../assets/svg/notfound.svg';
+import {ReactComponent as Pin} from '../assets/svg/pin.svg';
+import {ReactComponent as Info} from '../assets/svg/info.svg';
 
 import Map from '../components/Map';
 
@@ -61,6 +63,17 @@ const ParkWrapper = styled.div`
 
   .park-info div {
     padding: 1em;
+  }
+
+  .park-info div p {
+    display: flex;
+    align-items: center;
+  }
+
+  .park-info .park-icon {
+    height: 1.25em;
+    stroke: #fff;
+    cursor: pointer;
   }
 
   .btn {
@@ -201,6 +214,7 @@ const ParkWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-top: 3em;
     }
 
     .section-2 .row .img-1,
@@ -211,9 +225,11 @@ const ParkWrapper = styled.div`
 
     .section-2 .row .img-1 {
       margin-right: 2em;
+      padding-right: 2em;
     }
     .section-2 .row .img-2 {
       margin-left: 2em;
+      padding-left: 2em;
     }
 
     .activities,
@@ -296,15 +312,15 @@ const Park = () => {
       <div className='park-info'>
         <div>
           <p>Location</p>
-          <p>{parkInfo.address}</p>
+          <p>{parkInfo.address}<Pin className="park-icon"/></p>
         </div>
         <div>
           <p>Entrance Fee</p>
           <p>
             {parkInfo.entranceFee.cost}
-            <button onClick={() => alert(parkInfo.entranceFee.description)}>
+            <Info  className="park-icon"onClick={() => alert(parkInfo.entranceFee.description)}>
               ?
-            </button>
+            </Info>
           </p>
         </div>
         <div>
