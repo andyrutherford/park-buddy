@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { fetchPark } from '../utils/fetch';
+import {RoundButtonWrapper} from '../components/UI/RoundButton'
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import {ReactComponent as NotFound} from '../assets/svg/notfound.svg';
@@ -70,10 +71,18 @@ const ParkWrapper = styled.div`
     align-items: center;
   }
 
-  .park-info .park-icon {
-    height: 1.25em;
-    stroke: #fff;
+  .park-info .btn-round {
     cursor: pointer;
+    transition: background-color 150ms ease-in-out;
+  }
+
+  .park-info  svg {
+    stroke: #fff;
+    height: 70%;
+  }
+
+  .park-info .btn-round:hover{
+    background-color: rgba(255, 255, 255, 0.3);
   }
 
   .btn {
@@ -312,15 +321,15 @@ const Park = () => {
       <div className='park-info'>
         <div>
           <p>Location</p>
-          <p>{parkInfo.address}<Pin className="park-icon"/></p>
+          <p>{parkInfo.address}<RoundButtonWrapper className="btn-round" ><Pin className="park-icon"/></RoundButtonWrapper></p>
         </div>
         <div>
           <p>Entrance Fee</p>
           <p>
             {parkInfo.entranceFee.cost}
-            <Info  className="park-icon"onClick={() => alert(parkInfo.entranceFee.description)}>
+            <RoundButtonWrapper className="btn-round" ><Info  className="park-icon" onClick={() => alert(parkInfo.entranceFee.description)}>
               ?
-            </Info>
+            </Info></RoundButtonWrapper>
           </p>
         </div>
         <div>
