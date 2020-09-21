@@ -51,7 +51,8 @@ const ImageCard = ({
       <div className='info'>
         <p className='name'>{desc}</p>
       </div>      
-        <img src={img} alt={desc} />
+        {/* <img src={img} alt={desc} /> */}
+        <img src="#!" alt={desc} />
     </ImageCardWrapper>
   );
 };

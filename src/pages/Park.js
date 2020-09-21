@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { fetchPark } from '../utils/fetch';
+import SaveButton from '../components/UI/SaveButton';
 import {RoundButtonWrapper} from '../components/UI/RoundButton'
 import ImageCard from '../components/cards/ImageCard'
 
@@ -29,11 +30,9 @@ const ParkWrapper = styled.div`
     color: #fff;
     padding: 0.5em 0;
   }
-  .img-1,
-  .img-2 {
-    height: 600px;
-  }
+
   .header {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,6 +41,12 @@ const ParkWrapper = styled.div`
     width: 100%;
     text-align: center;
     color: #fff;
+  }
+
+  .header button {
+    position: absolute;
+    top: 2em;
+    right: 2em;
   }
 
   .header h1 {
@@ -61,6 +66,8 @@ const ParkWrapper = styled.div`
     justify-content: space-between;
     padding: 1em 3em;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
 
   .park-info div {
@@ -255,6 +262,7 @@ const Park = () => {
     code: '',
     state: '',
   });
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     fetchPark(parkId)
@@ -295,11 +303,18 @@ const Park = () => {
       .catch((e) => console.log('An error occurred: ', e.message));
   }, [parkId]);
 
+  const onSaveHandler = () => {
+    console.log('park saved...');
+    setSaved(!saved);
+  }
+
   if (loading) return <h1>Loading</h1>;
 
   return (
-    <ParkWrapper bg1={parkInfo.images[0]? parkInfo.images[0].url : '404'}>
+    // <ParkWrapper bg1={parkInfo.images[0]? parkInfo.images[0].url : '404'}>
+    <ParkWrapper bg1={'404'}>
       <div className='header'>
+        <SaveButton saved={saved} onSave={onSaveHandler} />
         <h1 className='name'>{parkInfo.name}</h1>
         <p className='state'>{parkInfo.designation}</p>
       </div>
@@ -344,7 +359,7 @@ const Park = () => {
       </section>
       <section className='section-2'>
         <div className='row row-1'>
-          {parkInfo.images[1] ? <ImageCard className="park-img" img={parkInfo.images[1].url} desc={parkInfo.images[1].title} /> : <NotFound />}
+          {/* {parkInfo.images[1] ? <ImageCard className="park-img" img={parkInfo.images[1].url} desc={parkInfo.images[1].title} /> : <NotFound />} */}
           <div className='activities'>
             <h2>Activities</h2>
             <p>{parkInfo.activities.length === 0 ? 'No activities found.' : parkInfo.activities.join(', ')}</p>
@@ -355,7 +370,7 @@ const Park = () => {
             <h2>Topics</h2>
             <p>{parkInfo.topics.length === 0 ? 'No topics found.' : parkInfo.topics.join(', ')}</p>
           </div>
-          {parkInfo.images[2] ? <ImageCard className="park-img" img={parkInfo.images[2].url} desc={parkInfo.images[2].title} /> : <NotFound />}
+          {/* {parkInfo.images[2] ? <ImageCard className="park-img" img={parkInfo.images[2].url} desc={parkInfo.images[2].title} /> : <NotFound />} */}
 
         </div>
       </section>
@@ -375,7 +390,7 @@ const Park = () => {
           </div>
         </div>
         <div className='map'>
-          {(parkInfo.location.lat !== "" && parkInfo.location.lng !== "") ?<Map coordinates={parkInfo.location} /> : <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>No location data available.</h3>}
+          {/* {(parkInfo.location.lat !== "" && parkInfo.location.lng !== "") ?<Map coordinates={parkInfo.location} /> : <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>No location data available.</h3>} */}
         </div>
       </section>
     </ParkWrapper>

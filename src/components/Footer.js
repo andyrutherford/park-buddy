@@ -38,7 +38,7 @@ const Footer = () => {
         <p>
           Made with{' '}
           <span role='img' aria-label='heart'>
-            💚
+            💚 and ☕ 
           </span>{' '}
           by{' '}
           <a
