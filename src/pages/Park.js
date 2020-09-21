@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { fetchPark } from '../utils/fetch';
 import {RoundButtonWrapper} from '../components/UI/RoundButton'
+import ImageCard from '../components/cards/ImageCard'
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import {ReactComponent as NotFound} from '../assets/svg/notfound.svg';
@@ -77,7 +78,6 @@ const ParkWrapper = styled.div`
   }
 
   .park-info  svg {
-    stroke: #fff;
     height: 70%;
   }
 
@@ -115,15 +115,6 @@ const ParkWrapper = styled.div`
     margin-bottom: 2em;
   }
 
-  .section-2 .row .img-1,
-  .section-2 .row .img-2 {
-    display: block;
-    height: 400px;
-    width: 100%;
-    max-width: ${(props) => props.theme.breakpoints.lg};
-    object-fit: cover;
-  }
-
   .secondary-info {
     background: #333;
     max-width: 400px;
@@ -147,6 +138,7 @@ const ParkWrapper = styled.div`
 
   .directions {
     background-color: #333;
+    color: #fff;
     max-width: 1500px;
     width: 100%;
     margin: auto;
@@ -157,6 +149,10 @@ const ParkWrapper = styled.div`
     flex-wrap: wrap;
     z-index: 1;
     position: relative;
+  }
+
+  .directions div {
+    padding-top: 1em;
   }
 
   .map {
@@ -181,7 +177,7 @@ const ParkWrapper = styled.div`
     ` : 
       css`
       .header {
-        background-image: url(${props.bg1});
+        background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(${props.bg1});
         background-size: cover; 
         height: 600px;
         background-attachment: fixed;
@@ -192,7 +188,7 @@ const ParkWrapper = styled.div`
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
     section {
-      margin: 4em 10%;
+      margin: 4em 10%;    
     }
 
     .section-1 > div {
@@ -226,19 +222,8 @@ const ParkWrapper = styled.div`
       padding-top: 3em;
     }
 
-    .section-2 .row .img-1,
-    .section-2 .row .img-2 {
-      margin: 0;
-      max-width: 50%;
-    }
-
-    .section-2 .row .img-1 {
-      margin-right: 2em;
-      padding-right: 2em;
-    }
-    .section-2 .row .img-2 {
-      margin-left: 2em;
-      padding-left: 2em;
+    .section-2 .row div {
+      width: max(45%, 375px);
     }
 
     .activities,
@@ -358,27 +343,20 @@ const Park = () => {
         </div>
       </section>
       <section className='section-2'>
-        <div className='row'>
-          {parkInfo.images[1] ? <img
-            className='img-1'
-            src={parkInfo.images[1].url}
-            alt={parkInfo.name}
-          /> : <NotFound />}
+        <div className='row row-1'>
+          {parkInfo.images[1] ? <ImageCard className="park-img" img={parkInfo.images[1].url} desc={parkInfo.images[1].title} /> : <NotFound />}
           <div className='activities'>
             <h2>Activities</h2>
             <p>{parkInfo.activities.length === 0 ? 'No activities found.' : parkInfo.activities.join(', ')}</p>
           </div>
         </div>
-        <div className='row'>
+        <div className='row row-2'>
           <div className='topics'>
             <h2>Topics</h2>
             <p>{parkInfo.topics.length === 0 ? 'No topics found.' : parkInfo.topics.join(', ')}</p>
           </div>
-          {parkInfo.images[2] ? <img
-            className='img-2'
-            src={parkInfo.images[2].url}
-            alt={parkInfo.name}
-          /> : <NotFound />}
+          {parkInfo.images[2] ? <ImageCard className="park-img" img={parkInfo.images[2].url} desc={parkInfo.images[2].title} /> : <NotFound />}
+
         </div>
       </section>
       <section className='section-3'>
