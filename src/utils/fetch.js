@@ -36,15 +36,19 @@ export const fetchRandomPark = async (n) => {
 export const fetchSearchParks = async (query) => {
   const limit = 16;
   const url = `https://developer.nps.gov/api/v1/parks?limit=${limit}&q=${query}&start=0&api_key=${process.env.REACT_APP_NPS_API_KEY}`;
+  let err;
   try {
     const res = await fetch(url);
     const json = await res.json();
-    if (json.total === 0) {
-      console.log('No results found.');
-      return 'No results found.  Please try searching for something else.'
+    if (json.total === "0") {
+      err = 'No results found.  Please try searching for something else.';
+      throw err;
     }
-    return json;
+    console.log(json.data);
+    const response = json.data.map(i =>  {return { url: i.url, name: i.name, img: i.images[0].url, parkCode: i.parkCode , location: i.addresses[0].city + ', ' + i.addresses[0].stateCode}})
+    console.log(response);
+    return response;
   } catch (error) {
-    console.log(error.message);
+    throw err;
   }
 }
