@@ -301,6 +301,7 @@ const Park = () => {
         setLoading(false);
       })
       .catch((e) => console.log('An error occurred: ', e.message));
+      //eslint-disable-next-line
   }, [parkId]);
 
   const onSaveHandler = () => {
@@ -399,37 +400,37 @@ const Park = () => {
 
 export default Park;
 
-{
-  /* <div className='secondary-info'>
-          <p>
-            Operating Hours{' '}
-            <button onClick={() => alert(parkInfo.operatingHours.description)}>
-              ?
-            </button>
-          </p>
-          <div className='card-body'>
-            <div className='days'>
-              <ul>
-                <li>Monday</li>
-                <li>Tuesday</li>
-                <li>Wednesday</li>
-                <li>Thursday</li>
-                <li>Friday</li>
-                <li>Saturday</li>
-                <li>Sunday</li>
-              </ul>
-            </div>
-            <div className='hours'>
-              <ul>
-                <li>{parkInfo.operatingHours.days.Monday}</li>
-                <li>{parkInfo.operatingHours.days.Tuesday}</li>
-                <li>{parkInfo.operatingHours.days.Wednesday}</li>
-                <li>{parkInfo.operatingHours.days.Thursday}</li>
-                <li>{parkInfo.operatingHours.days.Friday}</li>
-                <li>{parkInfo.operatingHours.days.Saturday}</li>
-                <li>{parkInfo.operatingHours.days.Sunday}</li>
-              </ul>
-            </div>
-          </div>
-        </div> */
-}
+// {
+//    <div className='secondary-info'>
+//           <p>
+//             Operating Hours{' '}
+//             <button onClick={() => alert(parkInfo.operatingHours.description)}>
+//               ?
+//             </button>
+//           </p>
+//           <div className='card-body'>
+//             <div className='days'>
+//               <ul>
+//                 <li>Monday</li>
+//                 <li>Tuesday</li>
+//                 <li>Wednesday</li>
+//                 <li>Thursday</li>
+//                 <li>Friday</li>
+//                 <li>Saturday</li>
+//                 <li>Sunday</li>
+//               </ul>
+//             </div>
+//             <div className='hours'>
+//               <ul>
+//                 <li>{parkInfo.operatingHours.days.Monday}</li>
+//                 <li>{parkInfo.operatingHours.days.Tuesday}</li>
+//                 <li>{parkInfo.operatingHours.days.Wednesday}</li>
+//                 <li>{parkInfo.operatingHours.days.Thursday}</li>
+//                 <li>{parkInfo.operatingHours.days.Friday}</li>
+//                 <li>{parkInfo.operatingHours.days.Saturday}</li>
+//                 <li>{parkInfo.operatingHours.days.Sunday}</li>
+//               </ul>
+//             </div>
+//           </div>
+//         </div> 
+// }

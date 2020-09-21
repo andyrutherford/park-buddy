@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Container from './components/Container';
 import Landing from './pages/Landing';
 import Park from './pages/Park';
+import Search from './pages/Search';
 import Footer from './components/Footer';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Container>
           <Switch>
             <Route path='/' exact component={Landing} />
+            <Route path='/explore' exact component={Search} />
             <Route path='/park/:parkId' exact component={Park} />
           </Switch>
         </Container>

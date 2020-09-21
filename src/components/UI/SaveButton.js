@@ -65,8 +65,8 @@ const SaveButtonWrapper = styled.button`
       :after {
         content: url(${add});
         transform: scale(0.7);
-        left: 0;
-        top: 0;
+        left: 1px;
+        top: 1px;
         bottom: 0;
         opacity: 1;
       }`

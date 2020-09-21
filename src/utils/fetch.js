@@ -32,3 +32,19 @@ export const fetchRandomPark = async (n) => {
     return await fetchRandomPark(n - 1);
   }
 }
+
+export const fetchSearchParks = async (query) => {
+  const limit = 16;
+  const url = `https://developer.nps.gov/api/v1/parks?limit=${limit}&q=${query}&start=0&api_key=${process.env.REACT_APP_NPS_API_KEY}`;
+  try {
+    const res = await fetch(url);
+    const json = await res.json();
+    if (json.total === 0) {
+      console.log('No results found.');
+      return 'No results found.  Please try searching for something else.'
+    }
+    return json;
+  } catch (error) {
+    console.log(error.message);
+  }
+}

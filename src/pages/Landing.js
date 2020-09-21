@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 
 import LandingCard from '../components/cards/LandingCard';
@@ -106,7 +107,7 @@ const LandingWrapper = styled.div`
 `;
 
 const Landing = () => {
-
+  let history = useHistory();
   const [parks, setParks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -131,17 +132,15 @@ const Landing = () => {
       <div className='landing-left'>
         <h1>Explore</h1>
         <p>Explore some of America's most beautiful national parks</p>
-        <button className='btn'>
+        <button className='btn' onClick={() => history.push('/explore')}>
           Explore now <Arrow />
         </button>
       </div>
-      <div className='landing-right'>
-
+      {/* {!loading &&       <div className='landing-right'>
             {parks[0] && <LandingCard park={parks[0]} />}
             {parks[1] && <LandingCard park={parks[1]}  />}
             {parks[2] && <LandingCard park={parks[2]} />}
-
-      </div>
+      </div>} */}
       <div className='landing-background'></div>
     </LandingWrapper>
   );
