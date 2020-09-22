@@ -23,8 +23,8 @@ const App = () => {
             <Route path='/explore' exact component={Search} />
             <Route path='/park/:parkId' exact component={Park} />
           </Switch>
-        </Container>
         <Footer />
+        </Container>
       </Router>
     </Theme>
   );

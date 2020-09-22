@@ -5,14 +5,14 @@ import github from '../assets/svg/github.svg';
 
 const FooterWrapper = styled.div`
   background: grey;
-  padding: 1em;
+  padding: 1em 0;
   max-width: 2000px;
+  width: 100%;
   margin: auto;
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
 
-  /* .github {
-    display: flex;
-    align-items: center;
-  } */
   .github:after {
     display: inline-block;
     content: ' ';

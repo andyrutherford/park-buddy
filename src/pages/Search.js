@@ -10,11 +10,11 @@ import { fetchSearchParks } from '../utils/fetch'
 
 const SearchWrapper = styled.div`
     color: #fff;
-    height: 700px;
     margin-top: 250px;
     display: flex;
     align-items: center;
     flex-direction: column;
+    
 
     h1 {
         font-size: 5em;
@@ -26,7 +26,7 @@ const SearchWrapper = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 2em 0;
+        margin: 2em 0 3em;
     }
 
     form input[type=text] {
@@ -81,7 +81,7 @@ const SearchWrapper = styled.div`
         border: 0.5px solid white;
         background-color: rgba(255,255,255,0.35);
         font-size: 1.25em;
-        margin: 3em 0;
+        margin: 3em 0 7em;
         color: #fff;
         padding: .5em 1em;
     }
@@ -106,7 +106,7 @@ const SearchWrapper = styled.div`
 const Search = () => {
     const resultsToShow = 8;
     const [limit, setLimit] = useState(resultsToShow);
-    const [query, setQuery] = useState('yose');
+    const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [error, setError] = useState('');
 
