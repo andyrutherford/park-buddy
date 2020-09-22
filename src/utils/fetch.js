@@ -22,7 +22,7 @@ export const fetchRandomPark = async (n) => {
       throw error;
     }
     return {
-      address: json.data[0].addresses[0].city + ', ' + json.data[0].addresses[0].stateCode,
+      address: json.data[0].addresses.length > 0 ? json.data[0].addresses[0].city + ', ' + json.data[0].addresses[0].stateCode : '',
       parkCode: json.data[0].parkCode,
       name: json.data[0].fullName,
       images: json.data[0].images
@@ -44,7 +44,7 @@ export const fetchSearchParks = async (query) => {
       err = 'No results found.  Please try searching for something else.';
       throw err;
     }
-    const response = json.data.map(i =>  {return { url: i.url, name: i.name, img: i.images.length > 0 ? i.images[0].url : null , parkCode: i.parkCode , location: i.addresses[0].city + ', ' + i.addresses[0].stateCode}})
+    const response = json.data.map(i =>  {return { url: i.url, name: i.name, img: i.images.length > 0 ? i.images[0].url : null , parkCode: i.parkCode , location: i.addresses.length > 0 ? i.addresses[0].city + ', ' + i.addresses[0].stateCode : null}})
     return response;
   } catch (error) {
     throw err;

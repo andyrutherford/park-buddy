@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import {ReactComponent as SearchIcon} from '../assets/svg/search.svg'
 import background from '../assets/img/landing-bg2.jpg';
+import parkPlaceholder from '../assets/img/park-placeholder.jpg';
 
 import ParkCard from '../components/cards/ParkCard'
 import { fetchSearchParks } from '../utils/fetch'
@@ -133,7 +134,7 @@ const Search = () => {
                 </form>
             </div>
             {results.length > 0 && <div className="results">
-                {results.map((i, idx) => <ParkCard key={idx} name={i.name} url={i.url} img={i.img} location={i.location} parkCode={i.parkCode}/>)}
+                {results.map((i, idx) => <ParkCard key={idx} name={i.name} url={i.url} img={i.img || parkPlaceholder} location={i.location} parkCode={i.parkCode}/>)}
                 </div>
             }
             {error && <h2>{error}</h2>}
