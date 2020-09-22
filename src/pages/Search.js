@@ -13,7 +13,6 @@ const SearchWrapper = styled.div`
     height: 700px;
     margin-top: 250px;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
 
@@ -75,7 +74,16 @@ const SearchWrapper = styled.div`
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         justify-items: center;
+        gap: 2em;
+    }
 
+    .show-more {
+        border: 0.5px solid white;
+        background-color: rgba(255,255,255,0.35);
+        font-size: 1.25em;
+        margin: 3em 0;
+        color: #fff;
+        padding: .5em 1em;
     }
 
     .page-background {
@@ -96,7 +104,8 @@ const SearchWrapper = styled.div`
 `;
 
 const Search = () => {
-
+    const resultsToShow = 8;
+    const [limit, setLimit] = useState(resultsToShow);
     const [query, setQuery] = useState('yose');
     const [results, setResults] = useState([]);
     const [error, setError] = useState('');
@@ -107,6 +116,7 @@ const Search = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
+        setLimit(resultsToShow);
         setResults([]);
         if (query.length === 0) {
             return setError('Please enter a search term.')
@@ -119,6 +129,7 @@ const Search = () => {
             setError(error);
         }
     }
+    
 
     return (
         <SearchWrapper>
@@ -134,11 +145,11 @@ const Search = () => {
                 </form>
             </div>
             {results.length > 0 && <div className="results">
-                {results.map((i, idx) => <ParkCard key={idx} name={i.name} url={i.url} img={i.img || parkPlaceholder} location={i.location} parkCode={i.parkCode}/>)}
+                {results.map((i, idx) => <ParkCard key={idx} name={i.name} url={i.url} img={i.img || parkPlaceholder} location={i.location} parkCode={i.parkCode}/>).slice(0,limit)}
                 </div>
             }
             {error && <h2>{error}</h2>}
-       
+            {results.length > 0 && results.length > limit && <button className="show-more" onClick={() => setLimit(limit + resultsToShow)}>Show more</button>}
             <div className="page-background"></div>
         </SearchWrapper>
     )

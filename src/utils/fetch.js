@@ -34,7 +34,7 @@ export const fetchRandomPark = async (n) => {
 }
 
 export const fetchSearchParks = async (query) => {
-  const limit = '25';
+  const limit = '100';
   const url = `https://developer.nps.gov/api/v1/parks?limit=${limit}&q=${query}&start=0&api_key=${process.env.REACT_APP_NPS_API_KEY}`;
   let err;
   try {

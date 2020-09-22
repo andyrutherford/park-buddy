@@ -17,7 +17,12 @@ const ParkCardWrapper = styled.div`
     css`
       background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${props.bg});
       background-size: cover;
+
+      :hover {
+        background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(${props.bg});
+        background-size: cover;
       }
+      
     ` 
     };
 
