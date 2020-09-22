@@ -312,8 +312,7 @@ const Park = () => {
   if (loading) return <h1>Loading</h1>;
 
   return (
-    // <ParkWrapper bg1={parkInfo.images[0]? parkInfo.images[0].url : '404'}>
-    <ParkWrapper bg1={'404'}>
+    <ParkWrapper bg1={parkInfo.images[0]? parkInfo.images[0].url : '404'}>
       <div className='header'>
         <SaveButton saved={saved} onSave={onSaveHandler} />
         <h1 className='name'>{parkInfo.name}</h1>
@@ -360,7 +359,7 @@ const Park = () => {
       </section>
       <section className='section-2'>
         <div className='row row-1'>
-          {/* {parkInfo.images[1] ? <ImageCard className="park-img" img={parkInfo.images[1].url} desc={parkInfo.images[1].title} /> : <NotFound />} */}
+          {parkInfo.images[1] ? <ImageCard className="park-img" img={parkInfo.images[1].url} desc={parkInfo.images[1].title} /> : <NotFound />}
           <div className='activities'>
             <h2>Activities</h2>
             <p>{parkInfo.activities.length === 0 ? 'No activities found.' : parkInfo.activities.join(', ')}</p>
@@ -371,7 +370,7 @@ const Park = () => {
             <h2>Topics</h2>
             <p>{parkInfo.topics.length === 0 ? 'No topics found.' : parkInfo.topics.join(', ')}</p>
           </div>
-          {/* {parkInfo.images[2] ? <ImageCard className="park-img" img={parkInfo.images[2].url} desc={parkInfo.images[2].title} /> : <NotFound />} */}
+          {parkInfo.images[2] ? <ImageCard className="park-img" img={parkInfo.images[2].url} desc={parkInfo.images[2].title} /> : <NotFound />}
 
         </div>
       </section>
@@ -391,7 +390,7 @@ const Park = () => {
           </div>
         </div>
         <div className='map'>
-          {/* {(parkInfo.location.lat !== "" && parkInfo.location.lng !== "") ?<Map coordinates={parkInfo.location} /> : <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>No location data available.</h3>} */}
+          {(parkInfo.location.lat !== "" && parkInfo.location.lng !== "") ?<Map coordinates={parkInfo.location} /> : <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>No location data available.</h3>}
         </div>
       </section>
     </ParkWrapper>

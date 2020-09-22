@@ -10,8 +10,9 @@ import { fetchSearchParks } from '../utils/fetch'
 const SearchWrapper = styled.div`
     color: #fff;
     height: 700px;
+    margin-top: 250px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
 
@@ -41,8 +42,8 @@ const SearchWrapper = styled.div`
     }
 
     form .btn {
-        /* cursor: pointer; */
         height: 100%;
+        width: 6em;
         border-top-left-radius: 0px;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
@@ -111,7 +112,6 @@ const Search = () => {
         }
         try {
             const res = await fetchSearchParks(query);
-            console.log(res);
             setResults(res);
             setError('');
         } catch (error) {

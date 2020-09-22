@@ -1,17 +1,25 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const ParkCardWrapper = styled.div`
     height: 250px;
     width: 250px;
     padding: 1em;
-    border: 2px solid green;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     cursor: pointer;
+
+    ${(props) =>
+    props.bg &&  
+    css`
+      background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${props.bg});
+      background-size: cover;
+      }
+    ` 
+    };
 
     h2 {
         text-align: center;
@@ -40,7 +48,7 @@ const ParkCard = ({ name, url, img, location, parkCode}) => {
 
     const history = useHistory();
 
-    return <ParkCardWrapper onClick={() => history.push(`/park/${parkCode}`)}>
+    return <ParkCardWrapper bg={img} onClick={() => history.push(`/park/${parkCode}`)}>
         <div className="name">
             <h2>{name}</h2>  
         </div>

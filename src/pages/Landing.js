@@ -136,11 +136,11 @@ const Landing = () => {
           Explore now <Arrow />
         </button>
       </div>
-      {/* {!loading &&       <div className='landing-right'>
+      {!loading &&       <div className='landing-right'>
             {parks[0] && <LandingCard park={parks[0]} />}
             {parks[1] && <LandingCard park={parks[1]}  />}
             {parks[2] && <LandingCard park={parks[2]} />}
-      </div>} */}
+      </div>}
       <div className='landing-background'></div>
     </LandingWrapper>
   );
