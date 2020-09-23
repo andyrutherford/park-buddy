@@ -1,92 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import {ReactComponent as SearchIcon} from '../assets/svg/search.svg'
+import { ReactComponent as SearchIcon } from '../assets/svg/search.svg';
 import background from '../assets/img/landing-bg2.jpg';
 import parkPlaceholder from '../assets/img/park-placeholder.jpg';
 
-import ParkCard from '../components/cards/ParkCard'
-import { fetchSearchParks } from '../utils/fetch'
+import Spinner from '../components/UI/Spinner';
+import ParkCard from '../components/cards/ParkCard';
+import { fetchSearchParks } from '../utils/fetch';
 
 const SearchWrapper = styled.div`
-    color: #fff;
-    margin-top: 250px;
+  color: #fff;
+  margin-top: 250px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    font-size: 5em;
+    text-align: center;
+  }
+
+  form {
+    height: 60px;
     display: flex;
     align-items: center;
-    flex-direction: column;
-    
+    justify-content: center;
+    margin: 2em 0 3em;
+  }
 
-    h1 {
-        font-size: 5em;
-        text-align: center;
-    }
+  form input[type='text'] {
+    width: 80%;
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border: none;
+    padding: 1em;
+    font-size: 1.25em;
+  }
 
-    form {
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 2em 0 3em;
-    }
+  form .btn {
+    height: 100%;
+    width: 6em;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: background-color 150ms ease-in-out;
+  }
 
-    form input[type=text] {
-        width: 80%;
-        height: 100%;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 5px;
-        border: none;
-        padding: 1em;
-        font-size: 1.25em;
-    }
+  form .btn:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+  }
 
-    form .btn {
-        height: 100%;
-        width: 6em;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 0px;
-        border: none;
-        background-color: rgba(255,255,255,0.3);
-        transition: background-color 150ms ease-in-out;
-    }
+  form .btn svg {
+    height: 40%;
+    width: 40%;
+    margin: 0 1.5em;
+    fill: #fff;
+    transition: transform 150ms ease-in-out;
+  }
 
-    form .btn:hover {
-        background-color: rgba(255,255,255,0.35);
-    }
+  form .btn:hover svg {
+    transform: scale(1.1);
+  }
 
-    form .btn svg {
-        height: 40%;
-        width: 40%;
-        margin: 0 1.5em;
-        fill: #fff;
-        transition: transform 150ms ease-in-out;
-    }
+  .results {
+    width: 70%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-items: center;
+    gap: 2em;
+  }
 
-    form .btn:hover svg{
-        transform: scale(1.1)
-    }
+  .show-more {
+    border: 0.5px solid white;
+    background-color: rgba(255, 255, 255, 0.35);
+    font-size: 1.25em;
+    margin: 3em 0 7em;
+    color: #fff;
+    padding: 0.5em 1em;
+  }
 
-    .results {
-        width: 70%;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        justify-items: center;
-        gap: 2em;
-    }
-
-    .show-more {
-        border: 0.5px solid white;
-        background-color: rgba(255,255,255,0.35);
-        font-size: 1.25em;
-        margin: 3em 0 7em;
-        color: #fff;
-        padding: .5em 1em;
-    }
-
-    .page-background {
+  .page-background {
     background-image: url(${background});
     position: fixed;
     top: 50%;
@@ -99,60 +99,85 @@ const SearchWrapper = styled.div`
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;
-
-    }
+  }
 `;
 
 const Search = () => {
-    const resultsToShow = 8;
-    const [limit, setLimit] = useState(resultsToShow);
-    const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
-    const [error, setError] = useState('');
+  const resultsToShow = 8;
+  const [limit, setLimit] = useState(resultsToShow);
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const onChange = (e) => {
-        setQuery(e.target.value);
+  const onChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setLimit(resultsToShow);
+    setResults([]);
+    if (query.length === 0) {
+      return setError('Please enter a search term.');
     }
-
-    const onSubmit = async e => {
-        e.preventDefault();
-        setLimit(resultsToShow);
-        setResults([]);
-        if (query.length === 0) {
-            return setError('Please enter a search term.')
-        }
-        try {
-            const res = await fetchSearchParks(query);
-            setResults(res);
-            setError('');
-        } catch (error) {
-            setError(error);
-        }
+    try {
+      const res = await fetchSearchParks(query);
+      setResults(res);
+      setError('');
+      setLoading(false);
+    } catch (error) {
+      setError(error);
     }
-    
+  };
 
-    return (
-        <SearchWrapper>
-            <div className="header">
-                <h1>Search Parks</h1>
-                <form onSubmit={onSubmit} >
-                    <input 
-                        type="text"
-                        onChange={onChange}
-                        value={query}
-                        />
-                    <button className="btn" style={{cursor: query.length === 0 ? 'not-allowed' : 'pointer'}}><SearchIcon /></button>
-                </form>
-            </div>
-            {results.length > 0 && <div className="results">
-                {results.map((i, idx) => <ParkCard key={idx} name={i.name} url={i.url} img={i.img || parkPlaceholder} location={i.location} parkCode={i.parkCode}/>).slice(0,limit)}
-                </div>
-            }
-            {error && <h2>{error}</h2>}
-            {results.length > 0 && results.length > limit && <button className="show-more" onClick={() => setLimit(limit + resultsToShow)}>Show more</button>}
-            <div className="page-background"></div>
-        </SearchWrapper>
-    )
-}
+  return (
+    <SearchWrapper>
+      <div className='header'>
+        <h1>Explore</h1>
+        <form onSubmit={onSubmit}>
+          <input type='text' onChange={onChange} value={query} />
+          <button
+            className='btn'
+            style={{ cursor: query.length === 0 ? 'not-allowed' : 'pointer' }}
+          >
+            <SearchIcon />
+          </button>
+        </form>
+      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        results.length > 0 && (
+          <div className='results'>
+            {results
+              .map((i, idx) => (
+                <ParkCard
+                  key={idx}
+                  name={i.name}
+                  url={i.url}
+                  img={i.img || parkPlaceholder}
+                  location={i.location}
+                  parkCode={i.parkCode}
+                />
+              ))
+              .slice(0, limit)}
+          </div>
+        )
+      )}
+      {error && <h2>{error}</h2>}
+      {results.length > 0 && results.length > limit && (
+        <button
+          className='show-more'
+          onClick={() => setLimit(limit + resultsToShow)}
+        >
+          Show more
+        </button>
+      )}
+      <div className='page-background'></div>
+    </SearchWrapper>
+  );
+};
 
-export default Search
+export default Search;

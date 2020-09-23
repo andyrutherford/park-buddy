@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { ReactComponent as LogoIcon } from '../assets/svg/trees.svg';
 import { ReactComponent as SearchIcon } from '../assets/svg/search.svg';
@@ -66,6 +66,7 @@ const NavbarWrapper = styled.div`
 `;
 
 const Navbar = () => {
+  const history = useHistory();
   return (
     <NavbarWrapper>
       <div className='nav-left'>
@@ -88,7 +89,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div>
-        <button className='btn'>
+        <button className='btn' onClick={() => history.push('/explore')}>
           <SearchIcon />
         </button>
       </div>
