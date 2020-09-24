@@ -1,6 +1,10 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 
-const LoginWithButton = styled.button`
+import { ReactComponent as GithubIcon } from '../../assets/svg/github.svg';
+import { ReactComponent as FacebookIcon } from '../../assets/svg/facebook.svg';
+
+const LoginWithButtonWrapper = styled.a`
   color: #ffffff;
   font-size: 1.5em;
   display: flex;
@@ -10,8 +14,12 @@ const LoginWithButton = styled.button`
   padding: 0.5em;
   width: 12em;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 2px;
+  margin: 1em 0;
 
   svg {
+    height: 1em;
+    width: 1em;
+    margin: 0 0.5em 0 0;
     transition: transform 150ms ease-in-out;
   }
   ${(props) =>
@@ -30,4 +38,25 @@ const LoginWithButton = styled.button`
   }
 `;
 
-export default LoginWithButton;
+export const LoginWithGithubButton = ({ type }) => {
+  const authState = Math.random().toString(36).slice(2);
+  sessionStorage.setItem('authState', authState);
+  return (
+    <LoginWithButtonWrapper
+      type={type}
+      href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${window.location.origin}/login&state=${authState}&scope=user:email`}
+    >
+      <GithubIcon />
+      <span>Login with Github</span>
+    </LoginWithButtonWrapper>
+  );
+};
+
+export const LoginWithFacebookButton = ({ type }) => {
+  return (
+    <LoginWithButtonWrapper type={type}>
+      <FacebookIcon />
+      <span>Login with Facebook</span>
+    </LoginWithButtonWrapper>
+  );
+};

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { signup } = require('../controllers/auth-controller');
+const { githubAuth } = require('../controllers/auth-controller');
 
-router.route('/signup').post(signup);
+router.route('/github').post(githubAuth);
 
 module.exports = router;

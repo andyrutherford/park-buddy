@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Link, Redirect, useLocation } from 'react-router-dom';
+
+import { githubAuth } from '../actions/auth-actions';
 
 import background from '../assets/img/landing-bg2.jpg';
 import { ReactComponent as GithubIcon } from '../assets/svg/github.svg';
 import { ReactComponent as FacebookIcon } from '../assets/svg/facebook.svg';
 
-import LoginWithButton from '../components/UI/LoginWithButton';
+import {
+  LoginWithGithubButton,
+  LoginWithFacebookButton,
+} from '../components/UI/LoginWithButton';
 
 const AuthWrapper = styled.div`
   display: flex;
@@ -15,16 +22,6 @@ const AuthWrapper = styled.div`
   height: 100%;
   color: #fff;
   height: 90vh;
-
-  button {
-    margin-bottom: 1em;
-  }
-
-  button svg {
-    height: 1em;
-    width: 1em;
-    margin: 0 0.5em 0 0;
-  }
 
   .page-background {
     background-image: url(${background});
@@ -42,17 +39,35 @@ const AuthWrapper = styled.div`
   }
 `;
 
-const Auth = () => {
+const Auth = ({ isAuthenticated, githubAuth }) => {
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const code = params.get('code');
+  const authState = params.get('state');
+  const [authLoading, setAuthLoading] = useState(false);
+
+  useEffect(() => {
+    if (code) {
+      setAuthLoading(true);
+      if (!authState === sessionStorage.getItem('authState')) {
+        return console.warn('Auth state does not match.');
+      }
+      githubAuth(code);
+    }
+  }, [authState, code, githubAuth]);
+
   return (
     <AuthWrapper>
-      <LoginWithButton type='github'>
-        <GithubIcon />
-        <span>Login with Github</span>
-      </LoginWithButton>
-      <LoginWithButton type='facebook'>
-        <FacebookIcon />
-        <span>Login with Facebook</span>
-      </LoginWithButton>
+      <LoginWithGithubButton
+        className='login-with'
+        type='github'
+        onClick={() => githubAuth()}
+      />
+      <LoginWithFacebookButton
+        className='login-with'
+        type='facebook'
+        onClick={() => githubAuth()}
+      />
       <div>login</div>
 
       <div className='page-background'></div>
@@ -60,4 +75,8 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { githubAuth })(Auth);
