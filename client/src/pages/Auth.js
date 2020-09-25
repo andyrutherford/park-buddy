@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 
-import { githubAuth } from '../actions/auth-actions';
+import { githubAuth, googleAuth } from '../actions/auth-actions';
 
 import background from '../assets/img/landing-bg2.jpg';
 import { ReactComponent as GithubIcon } from '../assets/svg/github.svg';
@@ -12,6 +12,7 @@ import { ReactComponent as FacebookIcon } from '../assets/svg/facebook.svg';
 import {
   LoginWithGithubButton,
   LoginWithFacebookButton,
+  LoginWithGoogleButton,
 } from '../components/UI/LoginWithButton';
 
 const AuthWrapper = styled.div`
@@ -39,7 +40,7 @@ const AuthWrapper = styled.div`
   }
 `;
 
-const Auth = ({ isAuthenticated, githubAuth }) => {
+const Auth = ({ isAuthenticated, githubAuth, googleAuth }) => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const code = params.get('code');
@@ -68,7 +69,11 @@ const Auth = ({ isAuthenticated, githubAuth }) => {
         type='facebook'
         onClick={() => githubAuth()}
       />
-      <div>login</div>
+      <LoginWithGoogleButton
+        className='login-with'
+        type='google'
+        onClick={() => googleAuth()}
+      />
 
       <div className='page-background'></div>
     </AuthWrapper>
@@ -79,4 +84,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { githubAuth })(Auth);
+export default connect(mapStateToProps, { githubAuth, googleAuth })(Auth);

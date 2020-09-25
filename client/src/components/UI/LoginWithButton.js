@@ -32,6 +32,11 @@ const LoginWithButtonWrapper = styled.a`
     css`
       background: #3b5998;
     `};
+  ${(props) =>
+    props.type === 'google' &&
+    css`
+      background: red;
+    `};
 
   :hover svg {
     transform: scale(1.2);
@@ -57,6 +62,17 @@ export const LoginWithFacebookButton = ({ type }) => {
     <LoginWithButtonWrapper type={type}>
       <FacebookIcon />
       <span>Login with Facebook</span>
+    </LoginWithButtonWrapper>
+  );
+};
+
+export const LoginWithGoogleButton = ({ type }) => {
+  return (
+    <LoginWithButtonWrapper
+      type={type}
+      href={'http://localhost:5000/auth/google'}
+    >
+      <span>Login with Google</span>
     </LoginWithButtonWrapper>
   );
 };
