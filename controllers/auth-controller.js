@@ -3,6 +3,8 @@ const axios = require('axios');
 
 const User = require('../models/User');
 
+const CLIENT_URL = 'http://localhost:3000';
+
 // @desc    Auth with github
 // @route   POST /auth/github
 // @access  PUBLIC
@@ -49,3 +51,29 @@ exports.githubAuth = async (req, res, next) => {
 // @route   GET /auth/google
 // @access  PUBLIC
 exports.googleAuth = async (req, res, next) => {};
+
+// @desc    Login successful
+exports.loginSuccess = async (req, res, next) => {
+  if (req.user) {
+    res.json({
+      success: true,
+      message: 'user has successfully authenticated',
+      user: req.user,
+      cookies: req.cookies,
+    });
+  }
+};
+
+// @desc    Login failed
+exports.loginFail = async (req, res, next) => {
+  res.status(401).json({
+    success: false,
+    message: 'user failed to authenticated',
+  });
+};
+
+// @desc    Logout
+exports.logout = async (req, res, next) => {
+  req.logout();
+  res.redirect(CLIENT_URL);
+};
