@@ -3,11 +3,9 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 
-import { githubAuth, googleAuth } from '../actions/auth-actions';
+import { githubAuth, googleAuth, getAuth } from '../actions/auth-actions';
 
 import background from '../assets/img/landing-bg2.jpg';
-import { ReactComponent as GithubIcon } from '../assets/svg/github.svg';
-import { ReactComponent as FacebookIcon } from '../assets/svg/facebook.svg';
 
 import {
   LoginWithGithubButton,
@@ -40,25 +38,26 @@ const AuthWrapper = styled.div`
   }
 `;
 
-const Auth = ({ isAuthenticated, githubAuth, googleAuth }) => {
-  const { search } = useLocation();
-  const params = new URLSearchParams(search);
-  const code = params.get('code');
-  const authState = params.get('state');
-  const [authLoading, setAuthLoading] = useState(false);
+const Auth = ({ isAuthenticated, githubAuth, googleAuth, getAuth }) => {
+  const [isAuth, setIsAuth] = useState(false);
+  const [error, setError] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    if (code) {
-      setAuthLoading(true);
-      if (!authState === sessionStorage.getItem('authState')) {
-        return console.warn('Auth state does not match.');
-      }
-      githubAuth(code);
-    }
-  }, [authState, code, githubAuth]);
+    getAuth();
+  }, []);
 
   return (
     <AuthWrapper>
+      {!isAuthenticated ? (
+        <div>
+          <h1>Not authenticated</h1>
+        </div>
+      ) : (
+        <div>
+          <h1>Welcome {user.displayName}</h1>
+        </div>
+      )}
       <LoginWithGithubButton
         className='login-with'
         type='github'
@@ -84,4 +83,8 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { githubAuth, googleAuth })(Auth);
+export default connect(mapStateToProps, {
+  githubAuth,
+  googleAuth,
+  getAuth,
+})(Auth);

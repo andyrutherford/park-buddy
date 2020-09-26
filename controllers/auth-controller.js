@@ -52,6 +52,8 @@ exports.githubAuth = async (req, res, next) => {
 // @access  PUBLIC
 exports.googleAuth = async (req, res, next) => {};
 
+exports.googleAuthRedirect = async (req, res, next) => {};
+
 // @desc    Login successful
 exports.loginSuccess = async (req, res, next) => {
   if (req.user) {

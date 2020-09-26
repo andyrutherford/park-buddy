@@ -70,7 +70,8 @@ export const LoginWithGoogleButton = ({ type }) => {
   return (
     <LoginWithButtonWrapper
       type={type}
-      href={'http://localhost:5000/auth/google'}
+      // href={'http://localhost:5000/auth/google'}
+      onClick={() => window.open('http://localhost:5000/auth/google', '_self')}
     >
       <span>Login with Google</span>
     </LoginWithButtonWrapper>

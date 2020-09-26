@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
+
+import { logout } from '../actions/auth-actions';
 
 import { ReactComponent as LogoIcon } from '../assets/svg/trees.svg';
 import { ReactComponent as SearchIcon } from '../assets/svg/search.svg';
@@ -65,7 +68,7 @@ const NavbarWrapper = styled.div`
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ isAuth, logout }) => {
   const history = useHistory();
   return (
     <NavbarWrapper>
@@ -81,11 +84,16 @@ const Navbar = () => {
             <Link to='/'>Home</Link>
           </li>
           <li className='nav-link'>
-            <Link to='/login'>Login</Link>
-          </li>
-          <li className='nav-link'>
             <Link to='#!'>Explore</Link>
           </li>
+          <li className='nav-link'>
+            {isAuth ? (
+              <span>Authenticated</span>
+            ) : (
+              <Link to='/login'>Login</Link>
+            )}
+          </li>
+          <button onClick={() => logout()}>Logout</button>
         </ul>
       </div>
       <div>
@@ -97,4 +105,9 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuthenticated,
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
