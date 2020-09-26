@@ -36,8 +36,21 @@ router.route('/google/redirect').get(
   })
 );
 
+router
+  .route('/github')
+  .get(passport.authenticate('github', { scope: ['user:email'] }));
+
+router.route('/github/redirect').get(
+  passport.authenticate('github', {
+    successRedirect: CLIENT_URL + '/login',
+    failureRedirect: '/auth/login/failed',
+  })
+);
+
 router.route('/success').get(loginSuccess);
 router.route('/fail').get(loginFail);
 router.route('/logout').get(logout);
+
+router.route('/abc').get((req, res, next) => res.send('ok'));
 
 module.exports = router;

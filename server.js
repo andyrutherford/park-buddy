@@ -62,6 +62,7 @@ app.use(passport.session());
 app.use('/auth', auth);
 
 const authCheck = (req, res, next) => {
+  console.log('auth check');
   if (!req.user) {
     res.status(401).json({
       authenticated: false,
@@ -76,6 +77,7 @@ const authCheck = (req, res, next) => {
 // otherwise, send a 401 response that the user is not authenticated
 // authCheck before navigating to home page
 app.get('/', authCheck, (req, res) => {
+  console.log('auth check');
   res.status(200).json({
     authenticated: true,
     message: 'user successfully authenticated',

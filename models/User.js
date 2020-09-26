@@ -4,7 +4,10 @@ const UserSchema = mongoose.Schema({
   googleId: {
     type: String,
   },
-  displayName: {
+  githubId: {
+    type: String,
+  },
+  name: {
     type: String,
   },
   image: {

@@ -49,7 +49,7 @@ export const LoginWithGithubButton = ({ type }) => {
   return (
     <LoginWithButtonWrapper
       type={type}
-      href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${window.location.origin}/login&state=${authState}&scope=user:email`}
+      onClick={() => window.open('http://localhost:5000/auth/github', '_self')}
     >
       <GithubIcon />
       <span>Login with Github</span>
@@ -70,7 +70,6 @@ export const LoginWithGoogleButton = ({ type }) => {
   return (
     <LoginWithButtonWrapper
       type={type}
-      // href={'http://localhost:5000/auth/google'}
       onClick={() => window.open('http://localhost:5000/auth/google', '_self')}
     >
       <span>Login with Google</span>
