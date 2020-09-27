@@ -2,8 +2,15 @@ import { toast } from 'react-toastify';
 
 export const logout = () => async (dispatch) => {
   console.log('logout');
-  window.open('http://localhost:5000/auth/logout', '_self');
-  // toast.success('You have successfully logged in.');
+  fetch('http://localhost:5000/auth/logout')
+    .then((response) => {
+      if (response.status === 200) return response.json();
+      throw new Error('failed to log out');
+    })
+    .then((responseJson) => {
+      dispatch({ type: 'LOGOUT_SUCCESS' });
+      toast(responseJson.message);
+    });
 };
 
 export const getAuth = () => async (dispatch) => {
@@ -29,44 +36,17 @@ export const getAuth = () => async (dispatch) => {
     });
 };
 
-export const githubAuth = (code) => async (dispatch) => {
-  // dispatch({ type: 'GITHUB_AUTH_START' });
-  // const data = { code, state: sessionStorage.getItem('authState') };
-  // try {
-  //   const res = await fetch('http://localhost:5000/auth/github', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  //   const auth = await res.json();
-  //   console.log(auth);
-  //   dispatch({ type: 'GITHUB_AUTH_SUCCESS' });
-  //   return auth;
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  // console.log(code);
+export const githubAuth = () => (dispatch) => {
+  dispatch({ type: 'START_GITHUB_AUTH' });
+  window.open('http://localhost:5000/auth/github', '_self');
 };
 
-export const googleAuth = (code) => async (dispatch) => {
-  // dispatch({ type: 'GITHUB_AUTH_START' });
-  // const data = { code, state: sessionStorage.getItem('authState') };
-  // try {
-  //   const res = await fetch('http://localhost:5000/auth/github', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  //   const auth = await res.json();
-  //   console.log(auth);
-  //   dispatch({ type: 'GITHUB_AUTH_SUCCESS' });
-  //   return auth;
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  // console.log(code);
+export const googleAuth = () => async (dispatch) => {
+  dispatch({ type: 'START_GOOGLE_AUTH' });
+  window.open('http://localhost:5000/auth/google', '_self');
+};
+
+export const facebookAuth = () => async (dispatch) => {
+  dispatch({ type: 'START_FACEBOOK_AUTH' });
+  window.open('http://localhost:5000/auth/facebook', '_self');
 };

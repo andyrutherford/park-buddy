@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Link, Redirect, useLocation } from 'react-router-dom';
-
-import { githubAuth, googleAuth, getAuth } from '../actions/auth-actions';
 
 import background from '../assets/img/landing-bg2.jpg';
 
+import { getAuth } from '../actions/auth-actions';
+
 import {
-  LoginWithGithubButton,
   LoginWithFacebookButton,
   LoginWithGoogleButton,
+  LoginWithGithubButton,
 } from '../components/UI/LoginWithButton';
 
 const AuthWrapper = styled.div`
@@ -38,13 +37,7 @@ const AuthWrapper = styled.div`
   }
 `;
 
-const Auth = ({
-  isAuthenticated,
-  githubAuth,
-  googleAuth,
-  getAuth,
-  authUser,
-}) => {
+const Auth = ({ isAuthenticated, getAuth, authUser }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
@@ -79,7 +72,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  githubAuth,
-  googleAuth,
   getAuth,
 })(Auth);

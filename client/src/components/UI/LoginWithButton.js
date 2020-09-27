@@ -1,9 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { ReactComponent as GithubIcon } from '../../assets/svg/github.svg';
 import { ReactComponent as FacebookIcon } from '../../assets/svg/facebook.svg';
 import { ReactComponent as GoogleIcon } from '../../assets/svg/google.svg';
+
+import {
+  githubAuth,
+  googleAuth,
+  facebookAuth,
+} from '../../actions/auth-actions';
 
 const LoginWithButtonWrapper = styled.a`
   color: #ffffff;
@@ -44,21 +51,23 @@ const LoginWithButtonWrapper = styled.a`
   }
 `;
 
-export const LoginWithGithubButton = ({ type }) => {
+const LoginWithGithubButton = ({ type, githubAuth }) => {
   const authState = Math.random().toString(36).slice(2);
   sessionStorage.setItem('authState', authState);
   return (
-    <LoginWithButtonWrapper
-      type={type}
-      onClick={() => window.open('http://localhost:5000/auth/github', '_self')}
-    >
+    <LoginWithButtonWrapper type={type} onClick={() => githubAuth()}>
       <GithubIcon />
       <span>Login with Github</span>
     </LoginWithButtonWrapper>
   );
 };
 
-export const LoginWithFacebookButton = ({ type }) => {
+const connectedGithubButton = connect(null, { githubAuth })(
+  LoginWithGithubButton
+);
+export { connectedGithubButton as LoginWithGithubButton };
+
+const LoginWithFacebookButton = ({ type, facebookAuth }) => {
   return (
     <LoginWithButtonWrapper
       type={type}
@@ -72,7 +81,12 @@ export const LoginWithFacebookButton = ({ type }) => {
   );
 };
 
-export const LoginWithGoogleButton = ({ type }) => {
+const connectedFacebookButton = connect(null, { facebookAuth })(
+  LoginWithFacebookButton
+);
+export { connectedFacebookButton as LoginWithFacebookButton };
+
+const LoginWithGoogleButton = ({ type, googleAuth }) => {
   return (
     <LoginWithButtonWrapper
       type={type}
@@ -83,3 +97,8 @@ export const LoginWithGoogleButton = ({ type }) => {
     </LoginWithButtonWrapper>
   );
 };
+
+const connectedGoogleButton = connect(null, { googleAuth })(
+  LoginWithGoogleButton
+);
+export { connectedGoogleButton as LoginWithGoogleButton };
