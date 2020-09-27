@@ -59,7 +59,12 @@ export const LoginWithGithubButton = ({ type }) => {
 
 export const LoginWithFacebookButton = ({ type }) => {
   return (
-    <LoginWithButtonWrapper type={type}>
+    <LoginWithButtonWrapper
+      type={type}
+      onClick={() =>
+        window.open('http://localhost:5000/auth/facebook', '_self')
+      }
+    >
       <FacebookIcon />
       <span>Login with Facebook</span>
     </LoginWithButtonWrapper>

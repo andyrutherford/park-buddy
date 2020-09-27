@@ -2,6 +2,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
+const axios = require('axios');
 const User = require('../models/User');
 
 module.exports = function (passport) {
@@ -11,9 +12,50 @@ module.exports = function (passport) {
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL: '/auth/facebook/redirect',
+        profileFields: [
+          'id',
+          'displayName',
+          'picture.type(large)',
+          'email',
+          'birthday',
+          'friends',
+          'first_name',
+          'last_name',
+          'middle_name',
+          'gender',
+          'link',
+        ],
       },
       async (accessToken, refreshToken, profile, done) => {
+        // const picture = `https://graph.facebook.com/me/picture?access_token=${accessToken}&&redirect=false`;
+        let picture;
+        axios
+          .get(
+            `https://graph.facebook.com/me/picture?access_token=${accessToken}&&redirect=false`
+          )
+          .then((res) => (picture = res.url))
+          .catch((err) => console.log(err.message));
+
         console.log(profile);
+        // console.log(picture);
+        const newUser = {
+          facebookId: profile.id,
+          name: profile.displayName,
+          image: profile.photos[0].value,
+        };
+
+        try {
+          let user = await User.findOne({ facebookId: profile.id });
+
+          if (user) {
+            done(null, user);
+          } else {
+            user = await User.create(newUser);
+            done(null, user);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       }
     )
   );

@@ -14,7 +14,11 @@ const {
 
 router.route('/github').post(githubAuth);
 
-router.route('/facebook').get(passport.authenticate('facebook'));
+router.route('/facebook').get(
+  passport.authenticate('facebook', {
+    scope: ['public_profile', 'email'],
+  })
+);
 router.route('/facebook/redirect').get(
   passport.authenticate('facebook', {
     successRedirect: CLIENT_URL + '/login',

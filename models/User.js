@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema({
+  facebookId: {
+    type: String,
+  },
   googleId: {
     type: String,
   },
