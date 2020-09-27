@@ -13,22 +13,18 @@ const {
 } = require('../controllers/auth-controller');
 
 router.route('/github').post(githubAuth);
-// router
-//   .route('/google')
-//   .get(passport.authenticate('google', { scope: ['profile'] }));
-// router
-//   .route('/google/callback')
-//   .get(
-//     passport.authenticate('google', { failureRedirect: '/' }),
-//     (req, res) => {
-//       res.redirect('http://localhost:3000/explore');
-//     }
-//   );
+
+router.route('/facebook').get(passport.authenticate('facebook'));
+router.route('/facebook/redirect').get(
+  passport.authenticate('facebook', {
+    successRedirect: CLIENT_URL + '/login',
+    failureRedirect: '/auth/login/failed',
+  })
+);
 
 router
   .route('/google')
   .get(passport.authenticate('google', { scope: ['profile'] }));
-
 router.route('/google/redirect').get(
   passport.authenticate('google', {
     successRedirect: CLIENT_URL + '/login',
@@ -39,7 +35,6 @@ router.route('/google/redirect').get(
 router
   .route('/github')
   .get(passport.authenticate('github', { scope: ['user:email'] }));
-
 router.route('/github/redirect').get(
   passport.authenticate('github', {
     successRedirect: CLIENT_URL + '/login',

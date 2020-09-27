@@ -1,9 +1,23 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
 const User = require('../models/User');
 
 module.exports = function (passport) {
+  passport.use(
+    new FacebookStrategy(
+      {
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: '/auth/facebook/redirect',
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        console.log(profile);
+      }
+    )
+  );
+
   passport.use(
     new GitHubStrategy(
       {
