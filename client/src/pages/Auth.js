@@ -38,13 +38,19 @@ const AuthWrapper = styled.div`
   }
 `;
 
-const Auth = ({ isAuthenticated, githubAuth, googleAuth, getAuth }) => {
+const Auth = ({
+  isAuthenticated,
+  githubAuth,
+  googleAuth,
+  getAuth,
+  authUser,
+}) => {
   const [isAuth, setIsAuth] = useState(false);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    getAuth();
+    // getAuth();
   }, []);
 
   return (
@@ -58,21 +64,9 @@ const Auth = ({ isAuthenticated, githubAuth, googleAuth, getAuth }) => {
           <h1>Welcome {user.displayName}</h1>
         </div>
       )}
-      <LoginWithGithubButton
-        className='login-with'
-        type='github'
-        onClick={() => githubAuth()}
-      />
-      <LoginWithFacebookButton
-        className='login-with'
-        type='facebook'
-        onClick={() => githubAuth()}
-      />
-      <LoginWithGoogleButton
-        className='login-with'
-        type='google'
-        onClick={() => googleAuth()}
-      />
+      <LoginWithGithubButton className='login-with' type='github' />
+      <LoginWithFacebookButton className='login-with' type='facebook' />
+      <LoginWithGoogleButton className='login-with' type='google' />
 
       <div className='page-background'></div>
     </AuthWrapper>
@@ -81,6 +75,7 @@ const Auth = ({ isAuthenticated, githubAuth, googleAuth, getAuth }) => {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  authUser: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {

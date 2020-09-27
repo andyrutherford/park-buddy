@@ -1,7 +1,9 @@
+import { toast } from 'react-toastify';
+
 export const logout = () => async (dispatch) => {
   console.log('logout');
   window.open('http://localhost:5000/auth/logout', '_self');
-  alert('You have logged out.');
+  // toast.success('You have successfully logged in.');
 };
 
 export const getAuth = () => async (dispatch) => {
@@ -20,6 +22,7 @@ export const getAuth = () => async (dispatch) => {
     })
     .then((responseJson) => {
       dispatch({ type: 'AUTH_SUCCESS', payload: responseJson.user });
+      toast.success('You have successfully logged in.');
     })
     .catch((error) => {
       dispatch({ type: 'AUTH_FAIL', payload: 'User authentication failed' });
@@ -27,43 +30,43 @@ export const getAuth = () => async (dispatch) => {
 };
 
 export const githubAuth = (code) => async (dispatch) => {
-  dispatch({ type: 'GITHUB_AUTH_START' });
-  const data = { code, state: sessionStorage.getItem('authState') };
-  try {
-    const res = await fetch('http://localhost:5000/auth/github', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    const auth = await res.json();
-    console.log(auth);
-    dispatch({ type: 'GITHUB_AUTH_SUCCESS' });
-    return auth;
-  } catch (error) {
-    console.log(error);
-  }
-  console.log(code);
+  // dispatch({ type: 'GITHUB_AUTH_START' });
+  // const data = { code, state: sessionStorage.getItem('authState') };
+  // try {
+  //   const res = await fetch('http://localhost:5000/auth/github', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
+  //   const auth = await res.json();
+  //   console.log(auth);
+  //   dispatch({ type: 'GITHUB_AUTH_SUCCESS' });
+  //   return auth;
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  // console.log(code);
 };
 
 export const googleAuth = (code) => async (dispatch) => {
-  dispatch({ type: 'GITHUB_AUTH_START' });
-  const data = { code, state: sessionStorage.getItem('authState') };
-  try {
-    const res = await fetch('http://localhost:5000/auth/github', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    const auth = await res.json();
-    console.log(auth);
-    dispatch({ type: 'GITHUB_AUTH_SUCCESS' });
-    return auth;
-  } catch (error) {
-    console.log(error);
-  }
-  console.log(code);
+  // dispatch({ type: 'GITHUB_AUTH_START' });
+  // const data = { code, state: sessionStorage.getItem('authState') };
+  // try {
+  //   const res = await fetch('http://localhost:5000/auth/github', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
+  //   const auth = await res.json();
+  //   console.log(auth);
+  //   dispatch({ type: 'GITHUB_AUTH_SUCCESS' });
+  //   return auth;
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  // console.log(code);
 };

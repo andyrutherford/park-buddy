@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { ReactComponent as GithubIcon } from '../../assets/svg/github.svg';
 import { ReactComponent as FacebookIcon } from '../../assets/svg/facebook.svg';
+import { ReactComponent as GoogleIcon } from '../../assets/svg/google.svg';
 
 const LoginWithButtonWrapper = styled.a`
   color: #ffffff;
@@ -10,15 +11,15 @@ const LoginWithButtonWrapper = styled.a`
   display: flex;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid white;
+  border: 0.5px solid white;
   padding: 0.5em;
   width: 12em;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 2px;
   margin: 1em 0;
 
   svg {
-    height: 1em;
-    width: 1em;
+    height: 1.25em;
+    width: 1.25em;
     margin: 0 0.5em 0 0;
     transition: transform 150ms ease-in-out;
   }
@@ -77,6 +78,7 @@ export const LoginWithGoogleButton = ({ type }) => {
       type={type}
       onClick={() => window.open('http://localhost:5000/auth/google', '_self')}
     >
+      <GoogleIcon />
       <span>Login with Google</span>
     </LoginWithButtonWrapper>
   );

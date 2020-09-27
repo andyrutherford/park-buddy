@@ -93,7 +93,9 @@ const Navbar = ({ isAuth, logout }) => {
               <Link to='/login'>Login</Link>
             )}
           </li>
-          <button onClick={() => logout()}>Logout</button>
+          <button className='btn nav-link' onClick={() => logout()}>
+            Logout
+          </button>
         </ul>
       </div>
       <div>

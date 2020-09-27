@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import store from './store';
 
 import { default as GlobalStyle } from './styles/Global';
@@ -14,12 +16,18 @@ import Auth from './pages/Auth';
 import Search from './pages/Search';
 import Footer from './components/Footer';
 
+import { getAuth } from './actions/auth-actions';
+
 const App = () => {
+  useEffect(() => {
+    store.dispatch(getAuth());
+  }, []);
   return (
     <Provider store={store}>
       <Theme>
         <Router>
           <GlobalStyle />
+          <ToastContainer position='bottom-right' autoClose={3000} />
           <Navbar />
           <Container>
             <Switch>

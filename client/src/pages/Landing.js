@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import LandingCard from '../components/cards/LandingCard';
@@ -7,7 +7,7 @@ import LandingCard from '../components/cards/LandingCard';
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import background from '../assets/img/landing-bg2.jpg';
 
-import { fetchRandomPark } from '../utils/fetch'
+import { fetchRandomPark } from '../utils/fetch';
 
 const LandingWrapper = styled.div`
   height: 90vh;
@@ -116,16 +116,16 @@ const Landing = () => {
       const parks = [];
       for (let i = 0; i < 3; i++) {
         try {
-          parks[i] = await fetchRandomPark()
+          parks[i] = await fetchRandomPark();
         } catch (error) {
           console.log(error);
         }
-      }    
+      }
       return parks;
-    }
-    fetch().then(res => setParks(res))
-    setLoading(false)
-  }, [])
+    };
+    fetch().then((res) => setParks(res));
+    setLoading(false);
+  }, []);
 
   return (
     <LandingWrapper>
@@ -136,11 +136,13 @@ const Landing = () => {
           Explore now <Arrow />
         </button>
       </div>
-      {!loading &&       <div className='landing-right'>
-            {parks[0] && <LandingCard park={parks[0]} />}
-            {parks[1] && <LandingCard park={parks[1]}  />}
-            {parks[2] && <LandingCard park={parks[2]} />}
-      </div>}
+      {!loading && (
+        <div className='landing-right'>
+          {parks[0] && <LandingCard park={parks[0]} />}
+          {parks[1] && <LandingCard park={parks[1]} />}
+          {parks[2] && <LandingCard park={parks[2]} />}
+        </div>
+      )}
       <div className='landing-background'></div>
     </LandingWrapper>
   );
