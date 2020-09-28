@@ -5,14 +5,10 @@ const passport = require('passport');
 const CLIENT_URL = 'http://localhost:3000';
 
 const {
-  githubAuth,
-  googleAuth,
   loginSuccess,
   loginFail,
   logout,
 } = require('../controllers/auth-controller');
-
-router.route('/github').post(githubAuth);
 
 router.route('/facebook').get(
   passport.authenticate('facebook', {

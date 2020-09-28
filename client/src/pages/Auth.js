@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import background from '../assets/img/landing-bg2.jpg';
 
@@ -38,13 +39,10 @@ const AuthWrapper = styled.div`
 `;
 
 const Auth = ({ isAuthenticated, getAuth, authUser }) => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [error, setError] = useState(null);
   const [user, setUser] = useState({});
+  const history = useHistory();
 
-  useEffect(() => {
-    // getAuth();
-  }, []);
+  if (isAuthenticated) history.push('/');
 
   return (
     <AuthWrapper>

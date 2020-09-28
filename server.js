@@ -8,6 +8,7 @@ const passport = require('passport');
 const passportConfig = require('./config/passport');
 const session = require('express-session');
 const auth = require('./routes/auth-route');
+const park = require('./routes/park-route');
 const connectDB = require('./config/db');
 const app = express();
 
@@ -60,6 +61,7 @@ app.use(passport.session());
 
 // Routes
 app.use('/auth', auth);
+app.use('/park', park);
 
 const authCheck = (req, res, next) => {
   console.log('auth check');

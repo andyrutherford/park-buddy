@@ -13,6 +13,7 @@ import Container from './components/Container';
 import Landing from './pages/Landing';
 import Park from './pages/Park';
 import Auth from './pages/Auth';
+import MyPlaces from './pages/MyPlaces';
 import Search from './pages/Search';
 import Footer from './components/Footer';
 
@@ -35,6 +36,7 @@ const App = () => {
               <Route path='/explore' exact component={Search} />
               <Route path='/park/:parkId' exact component={Park} />
               <Route path='/login' exact component={Auth} />
+              <Route path='/my-places' exact component={MyPlaces} />
             </Switch>
             <Footer />
           </Container>

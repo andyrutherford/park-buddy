@@ -1,16 +1,8 @@
 import { toast } from 'react-toastify';
 
 export const logout = () => async (dispatch) => {
-  console.log('logout');
-  fetch('http://localhost:5000/auth/logout')
-    .then((response) => {
-      if (response.status === 200) return response.json();
-      throw new Error('failed to log out');
-    })
-    .then((responseJson) => {
-      dispatch({ type: 'LOGOUT_SUCCESS' });
-      toast(responseJson.message);
-    });
+  window.open('http://localhost:5000/auth/logout', '_self');
+  dispatch({ type: 'LOGOUT_USER' });
 };
 
 export const getAuth = () => async (dispatch) => {

@@ -66,7 +66,7 @@ const SpinnerWrapper = styled.div`
 const Spinner = () => {
   return (
     <SpinnerWrapper>
-      <div class='loader'>Loading...</div>
+      <div className='loader'>Loading...</div>
     </SpinnerWrapper>
   );
 };
