@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useParams } from 'react-router-dom';
 
@@ -7,6 +8,8 @@ import SaveButton from '../components/UI/SaveButton';
 import { RoundButtonWrapper } from '../components/UI/RoundButton';
 import ImageCard from '../components/cards/ImageCard';
 import Spinner from '../components/UI/Spinner';
+
+import { addPark } from '../actions/park-actions';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import { ReactComponent as NotFound } from '../assets/svg/notfound.svg';
@@ -249,7 +252,7 @@ const ParkWrapper = styled.div`
   }
 `;
 
-const Park = () => {
+const Park = ({ addPark, authUser }) => {
   const { parkId } = useParams();
   const [loading, setLoading] = useState(true);
   const [parkInfo, setParkInfo] = useState({
@@ -287,7 +290,9 @@ const Park = () => {
           contact: res.contacts.emailAddresses[0].emailAddress,
           entranceFee: {
             cost: res.entranceFees[0]
-              ? '$' + parseInt(res.entranceFees[0].cost).toFixed(2)
+              ? res.entranceFees[0].cost === '0.0000'
+                ? 'Free'
+                : '$' + parseInt(res.entranceFees[0].cost).toFixed(2)
               : 'Price unknown',
             description: res.entranceFees[0]
               ? res.entranceFees[0].description
@@ -319,7 +324,7 @@ const Park = () => {
   }, [parkId]);
 
   const onSaveHandler = () => {
-    console.log('park saved...');
+    addPark({ userId: authUser._id, parkId: parkInfo.code });
     setSaved(!saved);
   };
 
@@ -457,39 +462,8 @@ const Park = () => {
   );
 };
 
-export default Park;
+const mapStateToProps = (state) => ({
+  authUser: state.auth.user,
+});
 
-// {
-//    <div className='secondary-info'>
-//           <p>
-//             Operating Hours{' '}
-//             <button onClick={() => alert(parkInfo.operatingHours.description)}>
-//               ?
-//             </button>
-//           </p>
-//           <div className='card-body'>
-//             <div className='days'>
-//               <ul>
-//                 <li>Monday</li>
-//                 <li>Tuesday</li>
-//                 <li>Wednesday</li>
-//                 <li>Thursday</li>
-//                 <li>Friday</li>
-//                 <li>Saturday</li>
-//                 <li>Sunday</li>
-//               </ul>
-//             </div>
-//             <div className='hours'>
-//               <ul>
-//                 <li>{parkInfo.operatingHours.days.Monday}</li>
-//                 <li>{parkInfo.operatingHours.days.Tuesday}</li>
-//                 <li>{parkInfo.operatingHours.days.Wednesday}</li>
-//                 <li>{parkInfo.operatingHours.days.Thursday}</li>
-//                 <li>{parkInfo.operatingHours.days.Friday}</li>
-//                 <li>{parkInfo.operatingHours.days.Saturday}</li>
-//                 <li>{parkInfo.operatingHours.days.Sunday}</li>
-//               </ul>
-//             </div>
-//           </div>
-//         </div>
-// }
+export default connect(mapStateToProps, { addPark })(Park);

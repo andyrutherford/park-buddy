@@ -1,4 +1,17 @@
+const User = require('../models/User');
+
 exports.addPark = async (req, res, next) => {
-  console.log(req.body);
-  res.send(req.body.parkId);
+  console.log(req.body.userId, req.body.parkId);
+  console.log(typeof req.body.parkId);
+  try {
+    let user = await User.findById(req.body.userId);
+    user.savedPlaces.push(req.body.parkId);
+    await user.save();
+    res.status(201).json({
+      success: true,
+      savedPlaces: user.savedPlaces,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 };

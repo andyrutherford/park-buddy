@@ -16,23 +16,12 @@ const UserSchema = mongoose.Schema({
   image: {
     type: String,
   },
-  // username: {
-  //   type: String,
-  //   unique: true,
-  // },
-  // name: {
-  //   type: String,
-  // },
-  // email: {
-  //   type: String,
-  //   trim: true,
-  // },
   createdAt: {
     type: Date,
     default: Date.now,
   },
   savedPlaces: {
-    type: [Array],
+    type: [String],
   },
 });
 

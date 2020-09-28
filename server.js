@@ -59,34 +59,45 @@ if (process.env.NODE_ENV === 'development') {
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
-app.use('/auth', auth);
-app.use('/park', park);
-
-const authCheck = (req, res, next) => {
-  console.log('auth check');
-  if (!req.user) {
-    res.status(401).json({
-      authenticated: false,
-      message: 'user has not been authenticated',
-    });
-  } else {
-    next();
-  }
+var ensureAuthenticated = function (req, res, next) {
+  console.log(req);
+  if (req.isAuthenticated()) {
+    return next();
+  } else res.status(401).send('You must be logged in to complete this action.');
 };
 
-// if it's already login, send the profile response,
-// otherwise, send a 401 response that the user is not authenticated
-// authCheck before navigating to home page
-app.get('/', authCheck, (req, res) => {
-  console.log('auth check');
-  res.status(200).json({
-    authenticated: true,
-    message: 'user successfully authenticated',
-    user: req.user,
-    cookies: req.cookies,
-  });
-});
+app.use('/park', ensureAuthenticated, park);
+
+// Routes
+app.use('/auth', auth);
+// app.use('/park', park);
+
+// app.use('/park', passport.authenticate('basic', { session: false }), park);
+
+// const authCheck = (req, res, next) => {
+//   console.log('auth check');
+//   if (!req.user) {
+//     res.status(401).json({
+//       authenticated: false,
+//       message: 'user has not been authenticated',
+//     });
+//   } else {
+//     next();
+//   }
+// };
+
+// // if it's already login, send the profile response,
+// // otherwise, send a 401 response that the user is not authenticated
+// // authCheck before navigating to home page
+// app.get('/', authCheck, (req, res) => {
+//   console.log('auth check');
+//   res.status(200).json({
+//     authenticated: true,
+//     message: 'user successfully authenticated',
+//     user: req.user,
+//     cookies: req.cookies,
+//   });
+// });
 
 const PORT = process.env.PORT || 5000;
 
