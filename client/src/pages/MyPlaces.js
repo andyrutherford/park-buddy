@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -21,12 +22,20 @@ const MyPlacesWrapper = styled.div`
   }
 `;
 
-const MyPlaces = () => {
+const MyPlaces = ({ isAuthenticated }) => {
+  const history = useHistory();
+  if (!isAuthenticated) history.push('/login');
+
   return (
     <MyPlacesWrapper>
+      <h1 className='header'>My Places</h1>
       <div className='page-background'></div>
     </MyPlacesWrapper>
   );
 };
 
-export default MyPlaces;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(MyPlaces);

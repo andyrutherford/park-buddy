@@ -2,6 +2,7 @@ const initialState = {
   isAuthenticated: false,
   user: {},
   error: '',
+  loading: true,
 };
 
 export default function (state = initialState, action) {
@@ -11,6 +12,7 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: true,
         user: action.payload,
+        loading: false,
       };
     case 'AUTH_FAIL':
       return {
