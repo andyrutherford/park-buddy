@@ -31,7 +31,7 @@ const App = () => {
           <GlobalStyle />
           <ToastContainer position='bottom-right' autoClose={3000} />
           <Navbar />
-          <Container>
+          <Container className='container'>
             <Switch>
               <Route path='/' exact component={Landing} />
               <Route path='/explore' exact component={Search} />
@@ -39,8 +39,8 @@ const App = () => {
               <Route path='/login' exact component={Auth} />
               <PrivateRoute path='/my-places' exact component={MyPlaces} />
             </Switch>
-            <Footer />
-          </Container>
+          </Container>{' '}
+          <Footer />
         </Router>
       </Theme>
     </Provider>

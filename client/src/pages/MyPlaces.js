@@ -6,6 +6,11 @@ import styled from 'styled-components';
 import background from '../assets/img/landing-bg2.jpg';
 
 const MyPlacesWrapper = styled.div`
+  h1 {
+    font-size: clamp(2em, 5vw, 4em);
+    text-align: center;
+  }
+
   .page-background {
     background-image: url(${background});
     position: fixed;
@@ -19,6 +24,12 @@ const MyPlacesWrapper = styled.div`
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    h1 {
+      text-align: left;
+    }
   }
 `;
 

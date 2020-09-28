@@ -11,7 +11,7 @@ import { fetchRandomPark } from '../utils/fetch';
 
 const LandingWrapper = styled.div`
   height: 90vh;
-  padding: 0 2em;
+
   color: #fff;
 
   .btn {
@@ -78,7 +78,6 @@ const LandingWrapper = styled.div`
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
     display: flex;
 
-    padding: 0 5em;
     .landing-left {
       display: flex;
       flex-direction: column;
