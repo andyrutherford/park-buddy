@@ -60,7 +60,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var ensureAuthenticated = function (req, res, next) {
-  console.log(req);
   if (req.isAuthenticated()) {
     return next();
   } else res.status(401).send('You must be logged in to complete this action.');

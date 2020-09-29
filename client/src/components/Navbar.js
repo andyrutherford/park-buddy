@@ -84,7 +84,7 @@ const Navbar = ({ isAuth, logout }) => {
             <Link to='/'>Home</Link>
           </li>
           <li className='nav-link'>
-            <Link to='#!'>Explore</Link>
+            <Link to='/explore'>Explore</Link>
           </li>
           <li className='nav-link'>
             {isAuth ? (
