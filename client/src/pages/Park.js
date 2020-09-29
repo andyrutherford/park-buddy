@@ -9,7 +9,7 @@ import { RoundButtonWrapper } from '../components/UI/RoundButton';
 import ImageCard from '../components/cards/ImageCard';
 import Spinner from '../components/UI/Spinner';
 
-import { addPark } from '../actions/park-actions';
+import { addPark } from '../actions/user-actions';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import { ReactComponent as NotFound } from '../assets/svg/notfound.svg';

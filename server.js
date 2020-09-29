@@ -8,7 +8,7 @@ const passport = require('passport');
 const passportConfig = require('./config/passport');
 const session = require('express-session');
 const auth = require('./routes/auth-route');
-const park = require('./routes/park-route');
+const user = require('./routes/user-route');
 const connectDB = require('./config/db');
 const app = express();
 
@@ -66,7 +66,7 @@ var ensureAuthenticated = function (req, res, next) {
   } else res.status(401).send('You must be logged in to complete this action.');
 };
 
-app.use('/park', ensureAuthenticated, park);
+app.use('/user', ensureAuthenticated, user);
 
 // Routes
 app.use('/auth', auth);

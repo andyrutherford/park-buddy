@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+
+import { getUser } from '../actions/user-actions';
 
 import background from '../assets/img/landing-bg2.jpg';
 
@@ -33,9 +35,13 @@ const MyPlacesWrapper = styled.div`
   }
 `;
 
-const MyPlaces = ({ isAuthenticated }) => {
+const MyPlaces = ({ isAuthenticated, getUser, user }) => {
   const history = useHistory();
   if (!isAuthenticated) history.push('/login');
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <MyPlacesWrapper>
@@ -47,6 +53,7 @@ const MyPlaces = ({ isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user: state.user,
 });
 
-export default connect(mapStateToProps)(MyPlaces);
+export default connect(mapStateToProps, { getUser })(MyPlaces);

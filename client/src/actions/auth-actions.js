@@ -1,20 +1,14 @@
 import { toast } from 'react-toastify';
 
+import { getHeaders } from '../utils/api';
+
 export const logout = () => async (dispatch) => {
   window.open('http://localhost:5000/auth/logout', '_self');
   dispatch({ type: 'LOGOUT_USER' });
 };
 
 export const getAuth = () => async (dispatch) => {
-  fetch('http://localhost:5000/auth/success', {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Credentials': true,
-    },
-  })
+  fetch('http://localhost:5000/auth/success', getHeaders)
     .then((response) => {
       if (response.status === 200) return response.json();
       throw new Error('failed to authenticate user');
