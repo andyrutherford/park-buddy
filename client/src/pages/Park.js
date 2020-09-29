@@ -252,7 +252,7 @@ const ParkWrapper = styled.div`
   }
 `;
 
-const Park = ({ addPark, authUser }) => {
+const Park = ({ addPark, authUser, isAuthenticated }) => {
   const { parkId } = useParams();
   const [loading, setLoading] = useState(true);
   const [parkInfo, setParkInfo] = useState({
@@ -324,6 +324,7 @@ const Park = ({ addPark, authUser }) => {
   }, [parkId]);
 
   const onSaveHandler = () => {
+    if (!isAuthenticated) return alert('Please log in to save this park');
     addPark({ userId: authUser._id, parkId: parkInfo.code });
     setSaved(!saved);
   };
@@ -464,6 +465,7 @@ const Park = ({ addPark, authUser }) => {
 
 const mapStateToProps = (state) => ({
   authUser: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { addPark })(Park);

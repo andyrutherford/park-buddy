@@ -12,6 +12,10 @@ import { fetchParks } from '../utils/fetch';
 import background from '../assets/img/landing-bg2.jpg';
 
 const MyPlacesWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
   h1 {
     font-size: clamp(2em, 5vw, 4em);
     text-align: center;
@@ -22,6 +26,7 @@ const MyPlacesWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 3em 0;
   }
 
   .header img {
@@ -74,12 +79,13 @@ const MyPlaces = ({ isAuthenticated, getUser, userID, user }) => {
   }, []);
 
   useEffect(() => {
+    setLoading(false);
+
     let places = '';
     if (user.savedPlaces && user.savedPlaces.length >= 1) {
       places = user.savedPlaces.join(',');
       fetchParks(places).then((response) => {
         setPlaces(response);
-        setLoading(false);
       });
     }
   }, [user.savedPlaces]);

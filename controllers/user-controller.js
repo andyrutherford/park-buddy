@@ -29,7 +29,12 @@ exports.getUser = async (req, res, next) => {
 exports.addPark = async (req, res, next) => {
   try {
     let user = await User.findById(req.body.userId);
-    user.savedPlaces.push(req.body.parkId);
+    if (user.savedPlaces.includes(req.body.parkId)) {
+      user.savedPlaces = user.savedPlaces.filter((p) => p !== req.body.parkId);
+    } else {
+      user.savedPlaces.push(req.body.parkId);
+    }
+    console.log(user.savedPlaces);
     await user.save();
     res.status(201).json({
       success: true,
@@ -39,3 +44,5 @@ exports.addPark = async (req, res, next) => {
     console.log(error.message);
   }
 };
+
+// user.savedPlaces.push(req.body.parkId);
