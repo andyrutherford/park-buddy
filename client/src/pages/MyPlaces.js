@@ -76,7 +76,7 @@ const MyPlaces = ({ isAuthenticated, getUser, userID, user }) => {
 
   useEffect(() => {
     getUser(userID);
-  }, []);
+  }, [getUser, userID]);
 
   useEffect(() => {
     setLoading(false);
@@ -95,7 +95,7 @@ const MyPlaces = ({ isAuthenticated, getUser, userID, user }) => {
   return (
     <MyPlacesWrapper>
       <div className='header'>
-        <img src={user.image} />
+        <img src={user.image} alt='avatar' />
         <h1>My Places</h1>
       </div>
       <div className='results'>
