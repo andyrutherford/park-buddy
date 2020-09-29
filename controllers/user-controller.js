@@ -34,7 +34,6 @@ exports.addPark = async (req, res, next) => {
     } else {
       user.savedPlaces.push(req.body.parkId);
     }
-    console.log(user.savedPlaces);
     await user.save();
     res.status(201).json({
       success: true,

@@ -31,7 +31,13 @@ export const addPark = (data) => async (dispatch) => {
     })
     .then((responseJSON) => {
       dispatch({ type: 'SAVE_PARK', payload: responseJSON.savedPlaces });
-      toast.success('You have saved this park.');
+      toast.success(
+        `You have ${
+          !responseJSON.savedPlaces.includes(data.parkId)
+            ? ' unsaved'
+            : ' saved'
+        } this park.`
+      );
     })
     .catch((err) => console.log(err.message));
 };

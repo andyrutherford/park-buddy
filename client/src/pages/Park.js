@@ -323,6 +323,12 @@ const Park = ({ addPark, authUser, isAuthenticated }) => {
     //eslint-disable-next-line
   }, [parkId]);
 
+  useEffect(() => {
+    if (authUser.savedPlaces.includes(parkId)) {
+      setSaved(true);
+    } else setSaved(false);
+  }, [authUser.savedPlaces, loading]);
+
   const onSaveHandler = () => {
     if (!isAuthenticated) return alert('Please log in to save this park');
     addPark({ userId: authUser._id, parkId: parkInfo.code });

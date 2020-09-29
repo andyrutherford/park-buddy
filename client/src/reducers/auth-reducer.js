@@ -1,6 +1,8 @@
 const initialState = {
   isAuthenticated: false,
-  user: {},
+  user: {
+    savedPlaces: [],
+  },
   error: '',
   loading: true,
 };
@@ -21,8 +23,14 @@ export default function (state = initialState, action) {
         user: {},
         error: action.payload,
       };
-    case 'GITHUB_AUTH':
-      return { ...state, isAuthenticated: !state.isAuthenticated };
+    case 'SAVE_PARK':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          savedPlaces: action.payload,
+        },
+      };
     default:
       return state;
   }
