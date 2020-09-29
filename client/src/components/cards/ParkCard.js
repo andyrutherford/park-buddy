@@ -48,7 +48,7 @@ const ParkCardWrapper = styled.div`
   }
 `;
 
-const ParkCard = ({ name, url, img, location, parkCode }) => {
+const ParkCard = ({ name, img, location, parkCode }) => {
   const history = useHistory();
 
   return (

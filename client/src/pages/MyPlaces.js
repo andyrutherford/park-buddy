@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import Spinner from '../components/UI/Spinner';
 import ParkCard from '../components/cards/ParkCard';
 
 import { getUser } from '../actions/user-actions';
+import { fetchParks } from '../utils/fetch';
 
 import background from '../assets/img/landing-bg2.jpg';
 
@@ -62,13 +63,26 @@ const MyPlacesWrapper = styled.div`
   }
 `;
 
-const MyPlaces = ({ isAuthenticated, getUser, userID, loading, user }) => {
+const MyPlaces = ({ isAuthenticated, getUser, userID, user }) => {
+  const [places, setPlaces] = useState([]);
+  const [loading, setLoading] = useState(true);
   const history = useHistory();
   if (!isAuthenticated) history.push('/login');
 
   useEffect(() => {
     getUser(userID);
   }, []);
+
+  useEffect(() => {
+    let places = '';
+    if (user.savedPlaces && user.savedPlaces.length >= 1) {
+      places = user.savedPlaces.join(',');
+      fetchParks(places).then((response) => {
+        setPlaces(response);
+        setLoading(false);
+      });
+    }
+  }, [user.savedPlaces]);
 
   if (loading) return <Spinner />;
 
@@ -79,10 +93,18 @@ const MyPlaces = ({ isAuthenticated, getUser, userID, loading, user }) => {
         <h1>My Places</h1>
       </div>
       <div className='results'>
-        {user.savedPlaces.length === 0 ? (
+        {places.length === 0 ? (
           <h1>You have no saved places yet.</h1>
         ) : (
-          user.savedPlaces.map((p) => <p>{p}</p>)
+          places.map((p, idx) => (
+            <ParkCard
+              key={idx}
+              name={p.name}
+              img={p.img}
+              location={p.location}
+              parkCode={p.parkCode}
+            />
+          ))
         )}
       </div>
       <div className='page-background'></div>
@@ -93,7 +115,6 @@ const MyPlaces = ({ isAuthenticated, getUser, userID, loading, user }) => {
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   userID: state.auth.user._id,
-  loading: state.user.loading,
   user: state.user,
 });
 

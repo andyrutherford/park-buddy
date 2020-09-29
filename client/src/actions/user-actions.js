@@ -10,6 +10,7 @@ export const getUser = (userID) => async (dispatch) => {
     })
     .then((responseJSON) => {
       dispatch({ type: 'GET_USER_SUCCESS', payload: responseJSON.user });
+      return responseJSON.user;
     })
     .catch((err) => console.log(err.message));
 };
