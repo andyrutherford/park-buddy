@@ -46,6 +46,4 @@ router.route('/success').get(loginSuccess);
 router.route('/fail').get(loginFail);
 router.route('/logout').get(logout);
 
-router.route('/abc').get((req, res, next) => res.send('ok'));
-
 module.exports = router;

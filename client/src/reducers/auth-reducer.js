@@ -22,6 +22,7 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         user: {},
         error: action.payload,
+        loading: false,
       };
     case 'SAVE_PARK':
       return {

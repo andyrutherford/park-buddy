@@ -12,7 +12,7 @@ const PrivateRoute = ({
     {...rest}
     render={(props) =>
       loading ? (
-        <Spinner />
+        <h1>Loading</h1>
       ) : isAuthenticated ? (
         <Component {...props} />
       ) : (

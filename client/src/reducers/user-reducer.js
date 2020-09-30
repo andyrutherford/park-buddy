@@ -19,6 +19,11 @@ export default function (state = initialState, action) {
         ...state,
         savedParks: action.payload,
       };
+    case 'GET_USER_FAIL':
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

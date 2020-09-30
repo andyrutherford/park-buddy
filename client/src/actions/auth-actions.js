@@ -8,6 +8,7 @@ export const logout = () => async (dispatch) => {
 };
 
 export const getAuth = () => async (dispatch) => {
+  console.log('getauth');
   fetch('http://localhost:5000/auth/success', getHeaders)
     .then((response) => {
       if (response.status === 200) return response.json();

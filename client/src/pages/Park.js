@@ -327,7 +327,7 @@ const Park = ({ addPark, authUser, isAuthenticated }) => {
     if (authUser.savedPlaces.includes(parkId)) {
       setSaved(true);
     } else setSaved(false);
-  }, [authUser.savedPlaces, loading]);
+  }, [authUser.savedPlaces, loading, parkId]);
 
   const onSaveHandler = () => {
     if (!isAuthenticated) return alert('Please log in to save this park');

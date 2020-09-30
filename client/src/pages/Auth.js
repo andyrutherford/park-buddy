@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -39,22 +39,12 @@ const AuthWrapper = styled.div`
 `;
 
 const Auth = ({ isAuthenticated, getAuth, authUser }) => {
-  const [user, setUser] = useState({});
   const history = useHistory();
 
   if (isAuthenticated) history.push('/');
 
   return (
     <AuthWrapper>
-      {!isAuthenticated ? (
-        <div>
-          <h1>Not authenticated</h1>
-        </div>
-      ) : (
-        <div>
-          <h1>Welcome {user.displayName}</h1>
-        </div>
-      )}
       <LoginWithGithubButton className='login-with' type='github' />
       <LoginWithFacebookButton className='login-with' type='facebook' />
       <LoginWithGoogleButton className='login-with' type='google' />

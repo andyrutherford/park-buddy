@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -68,29 +67,30 @@ const MyPlacesWrapper = styled.div`
   }
 `;
 
-const MyPlaces = ({ isAuthenticated, getUser, userID, user }) => {
+const MyPlaces = ({ getUser, userID, user, loading }) => {
   const [places, setPlaces] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const history = useHistory();
-  if (!isAuthenticated) history.push('/login');
+  const [localLoading, setLocalLoading] = useState(true);
 
   useEffect(() => {
     getUser(userID);
   }, [getUser, userID]);
 
   useEffect(() => {
-    setLoading(false);
+    // setLoading(false);
 
     let places = '';
     if (user.savedPlaces && user.savedPlaces.length >= 1) {
       places = user.savedPlaces.join(',');
       fetchParks(places).then((response) => {
         setPlaces(response);
+        setLocalLoading(false);
       });
+    } else {
+      setLocalLoading(false);
     }
   }, [user.savedPlaces]);
 
-  if (loading) return <Spinner />;
+  // if (loading) return <Spinner />;
 
   return (
     <MyPlacesWrapper>
@@ -99,7 +99,9 @@ const MyPlaces = ({ isAuthenticated, getUser, userID, user }) => {
         <h1>My Places</h1>
       </div>
       <div className='results'>
-        {places.length === 0 ? (
+        {loading || localLoading ? (
+          <Spinner />
+        ) : places.length === 0 && places === [] ? (
           <h1>You have no saved places yet.</h1>
         ) : (
           places.map((p, idx) => (
@@ -119,9 +121,9 @@ const MyPlaces = ({ isAuthenticated, getUser, userID, user }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
   userID: state.auth.user._id,
   user: state.user,
+  loading: state.user.loading,
 });
 
 export default connect(mapStateToProps, { getUser })(MyPlaces);

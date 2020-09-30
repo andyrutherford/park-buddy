@@ -12,7 +12,10 @@ export const getUser = (userID) => async (dispatch) => {
       dispatch({ type: 'GET_USER_SUCCESS', payload: responseJSON.user });
       return responseJSON.user;
     })
-    .catch((err) => console.log(err.message));
+    .catch((err) => {
+      console.log(err.message);
+      dispatch({ type: 'GET_USER_FAIL' });
+    });
 };
 
 // data = { userId: authUser._id, parkId: parkInfo.code }
