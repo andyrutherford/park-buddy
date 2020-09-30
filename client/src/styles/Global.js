@@ -27,7 +27,7 @@ const Global = createGlobalStyle`
 		color: ${(props) => props.theme.colors.textPrimary}
     }
     p {
-        font-family: 'Open Sans', sans-serif;
+        font-family: 'Vollkorn', sans-serif;
 		color: #fff;
     }
 	a, a:visited {

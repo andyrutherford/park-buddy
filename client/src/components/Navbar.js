@@ -40,6 +40,17 @@ const NavbarWrapper = styled.div`
     text-decoration: underline;
   }
 
+  .link {
+    font-size: 1em;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }
+
   .btn {
     background-color: rgba(255, 255, 255, 0.2);
     height: 3.5em;
@@ -75,7 +86,7 @@ const Navbar = ({ isAuth, logout }) => {
       <div className='nav-left'>
         <LogoIcon />
         <h1 className='logo'>
-          <Link to='/'>National Parks</Link>
+          <Link to='/'>Park Buddy</Link>
         </h1>
       </div>
       <div className='nav-right'>
@@ -84,18 +95,19 @@ const Navbar = ({ isAuth, logout }) => {
             <Link to='/'>Home</Link>
           </li>
           <li className='nav-link'>
-            <Link to='/explore'>Explore</Link>
-          </li>
-          <li className='nav-link'>
             {isAuth ? (
               <Link to='/my-places'>My Places</Link>
             ) : (
               <Link to='/login'>Login</Link>
             )}
           </li>
-          <button className='btn nav-link' onClick={() => logout()}>
-            Logout
-          </button>
+          {isAuth && (
+            <li className='nav-link'>
+              <button className='link' onClick={() => logout()}>
+                Logout
+              </button>
+            </li>
+          )}
         </ul>
       </div>
       <div>

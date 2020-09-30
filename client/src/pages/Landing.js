@@ -10,9 +10,8 @@ import background from '../assets/img/landing-bg2.jpg';
 import { fetchRandomPark } from '../utils/fetch';
 
 const LandingWrapper = styled.div`
-  height: 90vh;
-
   color: #fff;
+  padding: 7em 5em 10em 5em;
 
   .btn {
     padding: 1em 1.5em;

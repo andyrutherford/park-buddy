@@ -166,7 +166,7 @@ const ParkWrapper = styled.div`
     position: relative;
     width: 100%;
     background: transparent;
-    height: 600px;
+    height: 700px;
     padding: 0;
   }
 

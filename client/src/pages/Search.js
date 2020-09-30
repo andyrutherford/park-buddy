@@ -116,19 +116,20 @@ const Search = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setLimit(resultsToShow);
     setResults([]);
     if (query.length === 0) {
       return setError('Please enter a search term.');
     }
     try {
+      setLoading(true);
       const res = await fetchSearchParks(query);
       setResults(res);
       setError('');
       setLoading(false);
     } catch (error) {
       setError(error);
+      setLoading(false);
     }
   };
 
