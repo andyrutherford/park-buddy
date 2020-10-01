@@ -11,7 +11,7 @@ import { ReactComponent as LogoIcon } from '../assets/svg/trees.svg';
 import { ReactComponent as SearchIcon } from '../assets/svg/search.svg';
 
 const NavbarWrapper = styled.div`
-  background: transparent;
+  background: #333;
   position: sticky;
   display: flex;
   justify-content: space-between;
@@ -22,6 +22,7 @@ const NavbarWrapper = styled.div`
   .nav-left {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
   .nav-left svg {
     height: 2em;
@@ -30,9 +31,7 @@ const NavbarWrapper = styled.div`
   }
 
   .nav-right {
-    opacity: 0;
-    visibility: hidden;
-    transition: 150ms opacity ease-in-out;
+    display: none;
   }
   .nav-right ul {
     display: flex;
@@ -41,7 +40,7 @@ const NavbarWrapper = styled.div`
   }
 
   .nav-link {
-    padding: 0 3em;
+    margin: 0 max(1em, 3vw);
   }
 
   .nav-link:hover {
@@ -88,8 +87,7 @@ const NavbarWrapper = styled.div`
 
   @media (min-width: ${(props) => props.theme.breakpoints.md}) {
     .nav-right {
-      visibility: visible;
-      opacity: 1;
+      display: block;
     }
   }
 `;
@@ -101,9 +99,11 @@ const Navbar = ({ isAuth, logout }) => {
       <SlideNavbar className='mobile-nav' isAuth={isAuth} logout={logout} />
       <NavbarWrapper>
         <div className='nav-left'>
-          <LogoIcon />
+          <Link to='/'>
+            <LogoIcon />
+          </Link>
           <h1 className='logo'>
-            <Link to='/'></Link>
+            <Link to='/'>Park Buddy</Link>
           </h1>
         </div>
         <div className='nav-right'>

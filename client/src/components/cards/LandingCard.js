@@ -8,7 +8,7 @@ const LandingCardWrapper = styled.div`
   transition: transform 150ms ease-in-out;
   height: 500px;
   width: 250px;
-  font-size: .75em;
+  font-size: 0.75em;
 
   :hover {
     transform: scale(1.02);
@@ -48,9 +48,7 @@ const LandingCardWrapper = styled.div`
   }
 `;
 
-const LandingCard = ({
-  park
-}) => {
+const LandingCard = ({ park }) => {
   return (
     <LandingCardWrapper>
       <div className='info'>

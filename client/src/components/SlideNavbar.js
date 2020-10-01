@@ -18,8 +18,8 @@ const MenuWrapper = styled.div`
     position: fixed;
     width: 36px;
     height: 30px;
-    right: 18px;
-    top: 18px;
+    right: 23px;
+    top: 23px;
   }
 
   /* Color/shape of burger icon bars */

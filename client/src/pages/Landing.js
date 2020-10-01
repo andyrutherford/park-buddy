@@ -11,7 +11,7 @@ import { fetchRandomPark } from '../utils/fetch';
 
 const LandingWrapper = styled.div`
   color: #fff;
-  padding: 7em 5em 10em 5em;
+  padding: 7em min(10%, 5em) 10em min(10%, 5em);
 
   .btn {
     padding: 1em 1.5em;
@@ -75,6 +75,12 @@ const LandingWrapper = styled.div`
   }
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    .landing-right {
+      grid-auto-flow: column;
+    }
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.xxl}) {
     display: flex;
 
     .landing-left {
@@ -96,7 +102,7 @@ const LandingWrapper = styled.div`
     }
     .landing-right {
       display: grid;
-      grid-template-columns: repeat(auto-fill, 300px);
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 3em;
       justify-content: flex-end;
       width: 70%;
@@ -110,6 +116,7 @@ const Landing = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
     const fetch = async () => {
       const parks = [];
       for (let i = 0; i < 3; i++) {
@@ -121,8 +128,12 @@ const Landing = () => {
       }
       return parks;
     };
-    fetch().then((res) => setParks(res));
+    fetch().then((res) => {
+      if (mounted) setParks(res);
+    });
     setLoading(false);
+
+    return () => (mounted = false);
   }, []);
 
   return (

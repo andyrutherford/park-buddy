@@ -58,6 +58,7 @@ const ParkWrapper = styled.div`
 
   .park-info {
     background-color: #333;
+    color: #fff;
     max-width: 1500px;
     width: 80%;
     margin: -10em auto 2em auto;
@@ -103,9 +104,10 @@ const ParkWrapper = styled.div`
     max-width: 165px;
   }
 
+  a svg,
   .btn svg {
-    height: 2em;
-    width: 2em;
+    height: 1.5em;
+    width: 1.5em;
     transition: transform 200ms ease-in-out;
   }
 
@@ -120,6 +122,7 @@ const ParkWrapper = styled.div`
     padding: 0 10%;
     margin-top: 1em;
     margin-bottom: 2em;
+    color: #000;
   }
 
   .secondary-info {
@@ -166,7 +169,7 @@ const ParkWrapper = styled.div`
     position: relative;
     width: 100%;
     background: transparent;
-    height: 700px;
+    height: 600px;
     padding: 0;
   }
 
@@ -324,10 +327,12 @@ const Park = ({ addPark, authUser, isAuthenticated }) => {
   }, [parkId]);
 
   useEffect(() => {
-    if (authUser.savedPlaces.includes(parkId)) {
-      setSaved(true);
-    } else setSaved(false);
-  }, [authUser.savedPlaces, loading, parkId]);
+    if (isAuthenticated) {
+      if (authUser.savedPlaces.includes(parkId)) {
+        setSaved(true);
+      } else setSaved(false);
+    }
+  }, [authUser.savedPlaces, loading, parkId, isAuthenticated]);
 
   const onSaveHandler = () => {
     if (!isAuthenticated) return alert('Please log in to save this park');
@@ -350,7 +355,9 @@ const Park = ({ addPark, authUser, isAuthenticated }) => {
           <p>
             {parkInfo.address}
             <RoundButtonWrapper className='btn-round'>
-              <Pin className='park-icon' />
+              <a href='#directions' style={{ display: 'inherit' }}>
+                <Pin className='park-icon' />
+              </a>
             </RoundButtonWrapper>
           </p>
         </div>
@@ -434,7 +441,7 @@ const Park = ({ addPark, authUser, isAuthenticated }) => {
         </div>
       </section>
       <section className='section-3'>
-        <div className='directions'>
+        <div className='directions' id='directions'>
           <h2>Directions</h2>
           <p>{parkInfo.directions.info}</p>
           <div>

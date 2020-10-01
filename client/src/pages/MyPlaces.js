@@ -14,6 +14,7 @@ const MyPlacesWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  color: #fff;
 
   h1 {
     font-size: clamp(2em, 5vw, 4em);
@@ -90,8 +91,6 @@ const MyPlaces = ({ getUser, userID, user, loading }) => {
     }
   }, [user.savedPlaces]);
 
-  // if (loading) return <Spinner />;
-
   return (
     <MyPlacesWrapper>
       <div className='header'>
@@ -101,8 +100,8 @@ const MyPlaces = ({ getUser, userID, user, loading }) => {
       <div className='results'>
         {loading || localLoading ? (
           <Spinner />
-        ) : places.length === 0 && places === [] ? (
-          <h1>You have no saved places yet.</h1>
+        ) : places.length === 0 ? (
+          <h2 style={{ textAlign: 'center' }}>You have no saved places yet.</h2>
         ) : (
           places.map((p, idx) => (
             <ParkCard

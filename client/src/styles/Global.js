@@ -24,11 +24,9 @@ const Global = createGlobalStyle`
 	h1, h2, h3, h4, h5, h6 {
         font-family: 'Vollkorn', sans-serif;
         font-weight: normal;
-		color: ${(props) => props.theme.colors.textPrimary}
     }
     p {
         font-family: 'Vollkorn', sans-serif;
-		color: #fff;
     }
 	a, a:visited {
 		text-decoration: none;color: #fff;

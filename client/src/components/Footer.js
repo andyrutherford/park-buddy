@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import github from '../assets/svg/github.svg';
 
 const FooterWrapper = styled.div`
-  background: grey;
+  background: #333;
+  color: #fff;
   padding: 1em 0;
   width: 100%;
   margin: auto;
