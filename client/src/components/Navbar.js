@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 
+import SlideNavbar from './SlideNavbar';
+
 import { logout } from '../actions/auth-actions';
 
 import { ReactComponent as LogoIcon } from '../assets/svg/trees.svg';
@@ -25,6 +27,12 @@ const NavbarWrapper = styled.div`
     height: 2em;
     fill: #fff;
     margin-right: 0.5em;
+  }
+
+  .nav-right {
+    opacity: 0;
+    visibility: hidden;
+    transition: 150ms opacity ease-in-out;
   }
   .nav-right ul {
     display: flex;
@@ -77,45 +85,55 @@ const NavbarWrapper = styled.div`
     fill: #fff;
     transition: transform 150ms ease-in-out;
   }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.md}) {
+    .nav-right {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
 `;
 
 const Navbar = ({ isAuth, logout }) => {
   const history = useHistory();
   return (
-    <NavbarWrapper>
-      <div className='nav-left'>
-        <LogoIcon />
-        <h1 className='logo'>
-          <Link to='/'>Park Buddy</Link>
-        </h1>
-      </div>
-      <div className='nav-right'>
-        <ul>
-          <li className='nav-link'>
-            <Link to='/'>Home</Link>
-          </li>
-          <li className='nav-link'>
-            {isAuth ? (
-              <Link to='/my-places'>My Places</Link>
-            ) : (
-              <Link to='/login'>Login</Link>
-            )}
-          </li>
-          {isAuth && (
+    <nav>
+      <SlideNavbar className='mobile-nav' isAuth={isAuth} logout={logout} />
+      <NavbarWrapper>
+        <div className='nav-left'>
+          <LogoIcon />
+          <h1 className='logo'>
+            <Link to='/'></Link>
+          </h1>
+        </div>
+        <div className='nav-right'>
+          <ul>
             <li className='nav-link'>
-              <button className='link' onClick={() => logout()}>
-                Logout
-              </button>
+              <Link to='/'>Home</Link>
             </li>
-          )}
-        </ul>
-      </div>
-      <div>
-        <button className='btn' onClick={() => history.push('/explore')}>
-          <SearchIcon />
-        </button>
-      </div>
-    </NavbarWrapper>
+            <li className='nav-link'>
+              {isAuth ? (
+                <Link to='/my-places'>My Places</Link>
+              ) : (
+                <Link to='/login'>Login</Link>
+              )}
+            </li>
+            {isAuth && (
+              <li className='nav-link'>
+                <button className='link' onClick={() => logout()}>
+                  Logout
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
+        <div className='nav-right'>
+          <button className='btn' onClick={() => history.push('/explore')}>
+            <SearchIcon />
+          </button>
+        </div>
+      </NavbarWrapper>
+    </nav>
   );
 };
 

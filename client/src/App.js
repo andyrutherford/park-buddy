@@ -22,7 +22,6 @@ import { getAuth } from './actions/auth-actions';
 
 const App = () => {
   useEffect(() => {
-    console.log('useffect');
     store.dispatch(getAuth());
   }, []);
   return (

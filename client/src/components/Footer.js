@@ -75,7 +75,7 @@ const Footer = () => {
             View me on{' '}
             <a
               className='github'
-              href='https://github.com/andyrutherford/national-parks'
+              href='https://github.com/andyrutherford/park-buddy'
               target='_blank'
               rel='noopener noreferrer'
             >
