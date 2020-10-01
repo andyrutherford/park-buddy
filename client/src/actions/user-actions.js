@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { getHeaders } from '../utils/api';
 
 export const getUser = (userID) => async (dispatch) => {
-  fetch(`http://localhost:5000/user/${userID}`, getHeaders)
+  fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userID}`, getHeaders)
     .then((response) => {
       if (response.status === 200) return response.json();
       throw new Error('There was a problem getting user data.');
@@ -20,7 +20,7 @@ export const getUser = (userID) => async (dispatch) => {
 
 // data = { userId: authUser._id, parkId: parkInfo.code }
 export const addPark = (data) => async (dispatch) => {
-  fetch('http://localhost:5000/user/park/add', {
+  fetch(`${process.env.REACT_APP_BACKEND_URL}/user/park/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

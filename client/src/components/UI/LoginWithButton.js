@@ -52,8 +52,6 @@ const LoginWithButtonWrapper = styled.a`
 `;
 
 const LoginWithGithubButton = ({ type, githubAuth }) => {
-  const authState = Math.random().toString(36).slice(2);
-  sessionStorage.setItem('authState', authState);
   return (
     <LoginWithButtonWrapper type={type} onClick={() => githubAuth()}>
       <GithubIcon />
@@ -69,12 +67,7 @@ export { connectedGithubButton as LoginWithGithubButton };
 
 const LoginWithFacebookButton = ({ type, facebookAuth }) => {
   return (
-    <LoginWithButtonWrapper
-      type={type}
-      onClick={() =>
-        window.open('http://localhost:5000/auth/facebook', '_self')
-      }
-    >
+    <LoginWithButtonWrapper type={type} onClick={() => facebookAuth()}>
       <FacebookIcon />
       <span>Login with Facebook</span>
     </LoginWithButtonWrapper>
@@ -88,10 +81,7 @@ export { connectedFacebookButton as LoginWithFacebookButton };
 
 const LoginWithGoogleButton = ({ type, googleAuth }) => {
   return (
-    <LoginWithButtonWrapper
-      type={type}
-      onClick={() => window.open('http://localhost:5000/auth/google', '_self')}
-    >
+    <LoginWithButtonWrapper type={type} onClick={() => googleAuth()}>
       <GoogleIcon />
       <span>Login with Google</span>
     </LoginWithButtonWrapper>

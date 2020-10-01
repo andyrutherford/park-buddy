@@ -5,8 +5,6 @@ import { useHistory } from 'react-router';
 
 import background from '../assets/img/landing-bg2.jpg';
 
-import { getAuth } from '../actions/auth-actions';
-
 import {
   LoginWithFacebookButton,
   LoginWithGoogleButton,
@@ -38,7 +36,7 @@ const AuthWrapper = styled.div`
   }
 `;
 
-const Auth = ({ isAuthenticated, getAuth, authUser }) => {
+const Auth = ({ isAuthenticated }) => {
   const history = useHistory();
 
   if (isAuthenticated) history.push('/');
@@ -59,6 +57,4 @@ const mapStateToProps = (state) => ({
   authUser: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, {
-  getAuth,
-})(Auth);
+export default connect(mapStateToProps)(Auth);
