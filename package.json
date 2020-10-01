@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andyrutherford/national-parks.git"
+    "url": "git+https://github.com/andyrutherford/park-buddy.git"
   },
   "author": "andyrutherford",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/andyrutherford/national-parks/issues"
+    "url": "https://github.com/andyrutherford/park-buddy/issues"
   },
-  "homepage": "https://github.com/andyrutherford/national-parks#readme",
+  "homepage": "https://github.com/andyrutherford/park-buddy#readme",
   "devDependencies": {
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.4"

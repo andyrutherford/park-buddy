@@ -1,5 +1,5 @@
 {
-  "name": "national-parks",
+  "name": "park-buddy-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
