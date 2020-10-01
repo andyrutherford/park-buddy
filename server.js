@@ -33,9 +33,9 @@ app.use(cookieParser());
 // CORS
 app.use(
   cors({
-    origin: 'http://localhost:3000', // allow to server to accept request from different origin
+    origin: process.env.PRODUCTION_URL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // allow session cookie from browser to pass through
+    credentials: true,
   })
 );
 
@@ -45,15 +45,6 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-
-// // Session middleware
-// app.use(
-//   session({
-//     secret: 'secret',
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
 
 // Passport middleware
 app.use(passport.initialize());
@@ -65,38 +56,9 @@ var ensureAuthenticated = function (req, res, next) {
   } else res.status(401).send('You must be logged in to complete this action.');
 };
 
-app.use('/user', ensureAuthenticated, user);
-
 // Routes
 app.use('/auth', auth);
-// app.use('/park', park);
-
-// app.use('/park', passport.authenticate('basic', { session: false }), park);
-
-// const authCheck = (req, res, next) => {
-//   console.log('auth check');
-//   if (!req.user) {
-//     res.status(401).json({
-//       authenticated: false,
-//       message: 'user has not been authenticated',
-//     });
-//   } else {
-//     next();
-//   }
-// };
-
-// // if it's already login, send the profile response,
-// // otherwise, send a 401 response that the user is not authenticated
-// // authCheck before navigating to home page
-// app.get('/', authCheck, (req, res) => {
-//   console.log('auth check');
-//   res.status(200).json({
-//     authenticated: true,
-//     message: 'user successfully authenticated',
-//     user: req.user,
-//     cookies: req.cookies,
-//   });
-// });
+app.use('/user', ensureAuthenticated, user);
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,5 +1,3 @@
-const CLIENT_URL = 'http://localhost:3000';
-
 // @desc    Login successful
 exports.loginSuccess = async (req, res, next) => {
   if (req.user) {
@@ -25,9 +23,5 @@ exports.loginFail = async (req, res, next) => {
 // @desc    Logout
 exports.logout = async (req, res, next) => {
   req.logout();
-  // res.status(200).json({
-  //   success: true,
-  //   message: 'You have logged out.',
-  // });
-  res.redirect(CLIENT_URL);
+  res.redirect(process.env.PRODUCTION_URL);
 };
