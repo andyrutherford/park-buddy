@@ -7,8 +7,6 @@ exports.loginSuccess = async (req, res, next) => {
       user: req.user,
       cookies: req.cookies,
     });
-  } else {
-    res.status(401).send('User is not authenticated.');
   }
 };
 
