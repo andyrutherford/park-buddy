@@ -22,25 +22,23 @@ app.use(
     keys: [process.env.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100,
     sameSite: 'none',
-    secure: true,
   })
 );
 
 // parse cookies
 app.use(cookieParser());
 
-app.use(
-  session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      httpOnly: false,
-      sameSite: 'none',
-      secure: true,
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: 'keyboard cat',
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//       httpOnly: false,
+//       sameSite: 'none',
+//     },
+//   })
+// );
 
 // CORS
 app.use(
