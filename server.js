@@ -14,9 +14,6 @@ const app = express();
 
 dotenv.config({ path: './config/config.env' });
 
-// Passport config
-require('./config/passport')(passport);
-
 connectDB();
 
 app.use(
@@ -47,8 +44,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Passport middleware
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Passport config
+require('./config/passport')(passport);
 
 var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {

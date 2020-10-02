@@ -107,9 +107,9 @@ module.exports = function (passport) {
     done(null, user.id);
   });
 
-  passport.deserializeUser((id, done) => {
+  passport.deserializeUser(async (id, done) => {
     const userId = mongoose.Types.ObjectId(id);
-    User.findById(userId, function (err, user) {
+    await User.findById(userId, function (err, user) {
       done(err, user);
     });
   });
