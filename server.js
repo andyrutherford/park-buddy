@@ -31,7 +31,6 @@ app.use(cookieParser());
 app.use(
   session({
     secret: 'keyboard cat',
-    cookie: { httpOnly: false },
     resave: true,
     saveUninitialized: true,
     cookie: {
