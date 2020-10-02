@@ -10,7 +10,8 @@ module.exports = function (passport) {
       {
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: '/auth/facebook/redirect',
+        callbackURL:
+          'https://park-buddy-backend.herokuapp.com/auth/facebook/redirect',
         profileFields: [
           'id',
           'displayName',
