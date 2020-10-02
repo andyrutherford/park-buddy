@@ -21,6 +21,7 @@ app.use(
     name: 'session',
     keys: [process.env.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100,
+    sameSite: 'none',
   })
 );
 
@@ -33,6 +34,10 @@ app.use(
     cookie: { httpOnly: false },
     resave: true,
     saveUninitialized: true,
+    cookie: {
+      httpOnly: false,
+      sameSite: 'none',
+    },
   })
 );
 
