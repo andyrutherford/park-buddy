@@ -2,6 +2,9 @@
 
 Get important information such as park details, activities, opening hours, entrance fees, and directions to national parks across the United States.
 
+<img src="img/screenshot-2.jpeg" width="800" />
+<img src="img/screenshot-1.jpeg" width="800" />
+
 ## Features
 
 - Get relevant information about a national park in one convenient place.
@@ -45,7 +48,7 @@ $ COOKIE_KEY=<your-cookie-key>
 
 ## Demo
 
-Soon
+https://park-buddy.netlify.app/
 
 ## License
 
