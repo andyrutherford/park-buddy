@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import background from '../assets/img/landing-bg2.jpg';
 
+import { LoginForm } from '../components/UI/LoginForm';
 import {
   LoginWithFacebookButton,
   LoginWithGoogleButton,
@@ -38,11 +39,50 @@ const AuthWrapper = styled.div`
 
 const Auth = ({ isAuthenticated }) => {
   const history = useHistory();
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const onInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log('ok');
+  };
 
   if (isAuthenticated) history.push('/');
 
   return (
     <AuthWrapper>
+      <LoginForm onSubmit={onSubmit}>
+        <h1>Login</h1>
+        <input
+          type='text'
+          name='username'
+          value={formData.username}
+          onChange={onInputChange}
+          placeholder='Username'
+        />
+        <input
+          type='password'
+          name='password'
+          value={formData.password}
+          onChange={onInputChange}
+          placeholder='Password'
+        />
+        <button
+          className='btn'
+          disabled={!formData.username || !formData.password}
+        >
+          Log in
+        </button>
+      </LoginForm>
       <LoginWithGithubButton className='login-with' type='github' />
       <LoginWithFacebookButton className='login-with' type='facebook' />
       <LoginWithGoogleButton className='login-with' type='google' />

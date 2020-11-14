@@ -32,7 +32,8 @@ const Global = createGlobalStyle`
 		text-decoration: none;color: #fff;
 	}
 	a,
-	button {
+	button,
+	input {
 		cursor: pointer;
 		font-family: 'Vollkorn', sans-serif;
 	}
