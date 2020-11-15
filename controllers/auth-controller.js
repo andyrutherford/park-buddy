@@ -4,8 +4,31 @@ const generateToken = require('../utils/genToken');
 
 // @desc    Login
 exports.login = async (req, res, next) => {
-  console.log(req.body);
-  res.send(req.body);
+  const { username, password } = req.body;
+
+  if (!username) {
+    res.status(400);
+    // throw new Error('An email is required.');
+    res.send('username required');
+  }
+  if (!password) {
+    res.status(400);
+    // throw new Error('A password is required.');
+    res.send('password required');
+  }
+  const user = await User.findOne({ username });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      username: user.username,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    // throw new Error('Authentication failed.');
+    res.send('login failed');
+  }
 };
 
 // @desc    Signup
