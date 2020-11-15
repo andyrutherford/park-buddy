@@ -59,7 +59,7 @@ const Auth = ({ isAuthenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (signup) {
+    if (signupMode) {
       if (formData.password !== formData.confirmPassword) {
         return alert('The passwords must match');
       }
@@ -67,7 +67,6 @@ const Auth = ({ isAuthenticated }) => {
         signup({
           username: formData.username,
           password: formData.password,
-          confirmPassword: formData.confirmPassword,
         })
       );
     } else {
