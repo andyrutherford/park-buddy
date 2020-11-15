@@ -1,3 +1,15 @@
+// @desc    Login
+exports.login = async (req, res, next) => {
+  console.log(req.body);
+  res.send(req.body);
+};
+
+// @desc    Signup
+exports.signup = async (req, res, next) => {
+  console.log(req.body);
+  res.send(req.body);
+};
+
 // @desc    Login successful
 exports.loginSuccess = async (req, res, next) => {
   if (req.user) {

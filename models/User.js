@@ -10,6 +10,12 @@ const UserSchema = mongoose.Schema({
   githubId: {
     type: String,
   },
+  username: {
+    type: String,
+  },
+  password: {
+    type: String,
+  },
   name: {
     type: String,
   },

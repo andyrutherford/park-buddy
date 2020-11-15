@@ -35,6 +35,30 @@ export const getAuth = () => async (dispatch) => {
   }
 };
 
+export const login = ({ username, password }) => async (dispatch) => {
+  dispatch({ type: 'START_LOGIN_AUTH' });
+
+  const { data } = await axios.post(
+    `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
+    {
+      username,
+      password,
+    }
+  );
+};
+
+export const signup = ({ username, password }) => async (dispatch) => {
+  dispatch({ type: 'START_SIGNUP_AUTH' });
+
+  const { data } = await axios.post(
+    `${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
+    {
+      username,
+      password,
+    }
+  );
+};
+
 export const githubAuth = () => (dispatch) => {
   dispatch({ type: 'START_GITHUB_AUTH' });
   window.open(`${process.env.REACT_APP_BACKEND_URL}/auth/github`, '_self');

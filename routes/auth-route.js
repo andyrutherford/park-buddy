@@ -3,10 +3,15 @@ const router = express.Router();
 const passport = require('passport');
 
 const {
+  login,
+  signup,
   loginSuccess,
   loginFail,
   logout,
 } = require('../controllers/auth-controller');
+
+router.route('/login').post(login);
+router.route('/signup').post(signup);
 
 router.route('/facebook').get(
   passport.authenticate('facebook', {

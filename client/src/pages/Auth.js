@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+
+import { login, signup } from '../actions/auth-actions';
 
 import background from '../assets/img/landing-bg2.jpg';
 
@@ -39,10 +41,14 @@ const AuthWrapper = styled.div`
 
 const Auth = ({ isAuthenticated }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: 'jerry',
+    password: '123456',
+    confirmPassword: '',
   });
+  const [signupMode, setSignupMode] = useState(false);
 
   const onInputChange = (e) => {
     setFormData({
@@ -53,7 +59,27 @@ const Auth = ({ isAuthenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('ok');
+    if (signup) {
+      if (formData.password !== formData.confirmPassword) {
+        return alert('The passwords must match');
+      }
+      dispatch(
+        signup({
+          username: formData.username,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+        })
+      );
+    } else {
+      dispatch(
+        login({ username: formData.username, password: formData.password })
+      );
+    }
+  };
+
+  const toggleSignup = () => {
+    setFormData({ username: '', password: '', confirmPassword: '' });
+    setSignupMode(!signupMode);
   };
 
   if (isAuthenticated) history.push('/');
@@ -61,7 +87,7 @@ const Auth = ({ isAuthenticated }) => {
   return (
     <AuthWrapper>
       <LoginForm onSubmit={onSubmit}>
-        <h1>Login</h1>
+        <h1>{signupMode ? 'Sign up' : 'Log in'}</h1>
         <input
           type='text'
           name='username'
@@ -76,13 +102,23 @@ const Auth = ({ isAuthenticated }) => {
           onChange={onInputChange}
           placeholder='Password'
         />
+        {signupMode && (
+          <input
+            type='password'
+            name='confirmPassword'
+            value={formData.confirmPassword}
+            onChange={onInputChange}
+            placeholder='Confirm Password'
+          />
+        )}
         <button
           className='btn'
           disabled={!formData.username || !formData.password}
         >
-          Log in
+          {signupMode ? 'Create Account' : 'Log In'}
         </button>
       </LoginForm>
+      <button onClick={toggleSignup}>Sign up</button>
       <LoginWithGithubButton className='login-with' type='github' />
       <LoginWithFacebookButton className='login-with' type='facebook' />
       <LoginWithGoogleButton className='login-with' type='google' />
@@ -92,9 +128,9 @@ const Auth = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  authUser: state.auth.isAuthenticated,
-});
+// const mapStateToProps = (state) => ({
+//   isAuthenticated: state.auth.isAuthenticated,
+//   authUser: state.auth.isAuthenticated,
+// });
 
-export default connect(mapStateToProps)(Auth);
+export default Auth;
