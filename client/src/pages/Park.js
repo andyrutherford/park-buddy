@@ -9,7 +9,7 @@ import { RoundButtonWrapper } from '../components/UI/RoundButton';
 import ImageCard from '../components/cards/ImageCard';
 import Spinner from '../components/UI/Spinner';
 
-import { getSavedParks, addPark } from '../actions/user-actions';
+import { getSavedParks, savePark } from '../actions/user-actions';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import { ReactComponent as NotFound } from '../assets/svg/notfound.svg';
@@ -269,7 +269,8 @@ const Park = () => {
   });
   const [saved, setSaved] = useState(false);
   const auth = useSelector((state) => state.auth);
-  const { isAuthenticated, user } = auth;
+  const user = useSelector((state) => state.user);
+  const { isAuthenticated } = auth;
 
   useEffect(() => {
     fetchPark(parkId)
@@ -333,26 +334,26 @@ const Park = () => {
     dispatch(getSavedParks());
   }, [isAuthenticated]);
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     if (authUser.savedPlaces.includes(parkId)) {
-  //       setSaved(true);
-  //     } else setSaved(false);
-  //   }
-  // }, [authUser.savedPlaces, loading, parkId, isAuthenticated]);
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user.savedParks.includes(parkId)) {
+        setSaved(true);
+      } else setSaved(false);
+    }
+  }, [user.savedParks, loading, parkId, isAuthenticated]);
 
-  // const onSaveHandler = () => {
-  //   if (!isAuthenticated) return alert('Please log in to save this park');
-  //   addPark({ userId: authUser._id, parkId: parkInfo.code });
-  //   setSaved(!saved);
-  // };
+  const onSaveHandler = () => {
+    if (!isAuthenticated) return alert('Please log in to save this park');
+    dispatch(savePark(parkInfo.code));
+    setSaved(!saved);
+  };
 
   if (loading) return <Spinner />;
 
   return (
     <ParkWrapper bg1={parkInfo.images[0] ? parkInfo.images[0].url : '404'}>
       <div className='header'>
-        {/* <SaveButton saved={saved} onSave={onSaveHandler} /> */}
+        <SaveButton saved={saved} onSave={onSaveHandler} />
         <h1 className='name'>{parkInfo.name}</h1>
         <p className='state'>{parkInfo.designation}</p>
       </div>

@@ -4,6 +4,7 @@ const initialState = {
   image: '',
   social: {},
   loading: true,
+  savedParks: [],
 };
 
 export default function (state = initialState, action) {
@@ -23,6 +24,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
+      };
+    case 'GET_SAVED_PARKS_SUCCESS':
+      return {
+        ...state,
+        savedParks: [...action.payload],
       };
     default:
       return state;

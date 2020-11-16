@@ -10,6 +10,6 @@ const {
 
 router.route('/:userID/parks').get(protect, getUserParks);
 router.route('/:userID').get(getUser);
-router.route('/park/add').post(addPark);
+router.route('/park/add').post(protect, addPark);
 
 module.exports = router;

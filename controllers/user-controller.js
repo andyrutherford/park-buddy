@@ -28,12 +28,19 @@ exports.getUser = async (req, res, next) => {
 
 exports.getUserParks = async (req, res, next) => {
   console.log(req.user);
-  res.send('user parks');
+  try {
+    const user = await User.findById(req.user._id).select(
+      'savedPlaces username'
+    );
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 exports.addPark = async (req, res, next) => {
   try {
-    let user = await User.findById(req.body.userId);
+    let user = await User.findById(req.user._id);
     if (user.savedPlaces.includes(req.body.parkId)) {
       user.savedPlaces = user.savedPlaces.filter((p) => p !== req.body.parkId);
     } else {

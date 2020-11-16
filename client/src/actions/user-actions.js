@@ -19,35 +19,57 @@ export const getUser = (userID) => async (dispatch) => {
     });
 };
 
-// data = { userId: authUser._id, parkId: parkInfo.code }
-export const addPark = (data) => async (dispatch) => {
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/user/park/add`, {
-    method: 'POST',
+export const savePark = (parkId) => async (dispatch, getState) => {
+  console.log('abc');
+  dispatch({ type: 'SAVE_PARK_REQUEST' });
+  const { auth } = getState();
+
+  const config = {
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth.user.token}`,
     },
-    credentials: 'include',
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (response.status === 201) return response.json();
-      throw new Error('There was a problem saving this park.');
-    })
-    .then((responseJSON) => {
-      dispatch({ type: 'SAVE_PARK', payload: responseJSON.savedPlaces });
-      toast.success(
-        `You have ${
-          !responseJSON.savedPlaces.includes(data.parkId)
-            ? ' unsaved'
-            : ' saved'
-        } this park.`
-      );
-    })
-    .catch((err) => console.log(err.message));
+  };
+
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/user/park/add`,
+      { parkId },
+      config
+    );
+    console.log(data);
+    // dispatch({ type: 'SAVE_PARK_SUCCESS', payload: data.savedPlaces });
+  } catch (error) {
+    console.log(error);
+  }
+
+  // fetch(`${process.env.REACT_APP_BACKEND_URL}/user/park/add`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   credentials: 'include',
+  //   body: JSON.stringify(data),
+  // })
+  //   .then((response) => {
+  //     if (response.status === 201) return response.json();
+  //     throw new Error('There was a problem saving this park.');
+  //   })
+  //   .then((responseJSON) => {
+  //     dispatch({ type: 'SAVE_PARK', payload: responseJSON.savedPlaces });
+  //     toast.success(
+  //       `You have ${
+  //         !responseJSON.savedPlaces.includes(data.parkId)
+  //           ? ' unsaved'
+  //           : ' saved'
+  //       } this park.`
+  //     );
+  //   })
+  //   .catch((err) => console.log(err.message));
 };
 
 export const getSavedParks = () => async (dispatch, getState) => {
-  console.log('getsavedparks');
+  dispatch({ type: 'GET_SAVED_PARKS_REQUEST' });
   const { auth } = getState();
   const config = {
     headers: {
@@ -57,9 +79,12 @@ export const getSavedParks = () => async (dispatch, getState) => {
   };
 
   try {
-    const { data } = axios.get(
+    const { data } = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/user/${auth.user.username}/parks`,
       config
     );
-  } catch (error) {}
+    dispatch({ type: 'GET_SAVED_PARKS_SUCCESS', payload: data.savedPlaces });
+  } catch (error) {
+    console.log(error);
+  }
 };
