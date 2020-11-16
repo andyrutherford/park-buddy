@@ -27,7 +27,7 @@ const UserSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  savedPlaces: {
+  savedParks: {
     type: [String],
   },
 });

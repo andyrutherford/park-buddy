@@ -9,7 +9,7 @@ const {
 } = require('../controllers/user-controller');
 
 router.route('/:userID/parks').get(protect, getUserParks);
-router.route('/:userID').get(getUser);
+router.route('/:userID').get(protect, getUser);
 router.route('/park/add').post(protect, addPark);
 
 module.exports = router;

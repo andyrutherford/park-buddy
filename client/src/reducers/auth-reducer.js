@@ -4,7 +4,7 @@ const initialState = {
     ? JSON.parse(localStorage.getItem('userInfo'))
     : {},
   error: '',
-  loading: true,
+  loading: false,
 };
 
 export default function (state = initialState, action) {

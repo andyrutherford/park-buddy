@@ -1,10 +1,8 @@
 const User = require('../models/User');
 
 exports.getUser = async (req, res, next) => {
-  const { userID } = req.params;
-  console.log(userID);
   try {
-    let user = await User.findById(userID);
+    let user = await User.findById(req.user._id);
     if (!user) {
       throw new Error('There was a problem getting the user data.');
     }
@@ -12,7 +10,7 @@ exports.getUser = async (req, res, next) => {
       id: user._id,
       name: user.name,
       image: user.image,
-      savedPlaces: user.savedPlaces,
+      savedParks: user.savedParks,
       social: {
         facebook: user.facebookId,
         google: user.googleId,
@@ -27,7 +25,6 @@ exports.getUser = async (req, res, next) => {
 };
 
 exports.getUserParks = async (req, res, next) => {
-  console.log(req.user);
   try {
     const user = await User.findById(req.user._id).select(
       'savedPlaces username'
@@ -55,5 +52,3 @@ exports.addPark = async (req, res, next) => {
     console.log(error.message);
   }
 };
-
-// user.savedPlaces.push(req.body.parkId);

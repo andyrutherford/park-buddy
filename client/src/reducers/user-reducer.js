@@ -28,6 +28,7 @@ export default function (state = initialState, action) {
     case 'GET_SAVED_PARKS_SUCCESS':
       return {
         ...state,
+        loading: false,
         savedParks: [...action.payload],
       };
     default:

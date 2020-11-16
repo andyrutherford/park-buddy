@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Spinner from '../components/UI/Spinner';
@@ -68,20 +68,22 @@ const MyPlacesWrapper = styled.div`
   }
 `;
 
-const MyPlaces = ({ getUser, userID, user, loading }) => {
+const MyPlaces = ({ loading }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const [places, setPlaces] = useState([]);
   const [localLoading, setLocalLoading] = useState(true);
 
   useEffect(() => {
-    getUser(userID);
-  }, [getUser, userID]);
+    dispatch(getUser());
+  }, []);
 
   useEffect(() => {
-    // setLoading(false);
+    setLocalLoading(false);
 
     let places = '';
-    if (user.savedPlaces && user.savedPlaces.length >= 1) {
-      places = user.savedPlaces.join(',');
+    if (user.savedParks && user.savedParks.length >= 1) {
+      places = user.savedParks.join(',');
       fetchParks(places).then((response) => {
         setPlaces(response);
         setLocalLoading(false);
@@ -89,12 +91,12 @@ const MyPlaces = ({ getUser, userID, user, loading }) => {
     } else {
       setLocalLoading(false);
     }
-  }, [user.savedPlaces]);
+  }, [user.savedParks]);
 
   return (
     <MyPlacesWrapper>
       <div className='header'>
-        <img src={user.image} alt='avatar' />
+        {/* <img src={user.image} alt='avatar' /> */}
         <h1>My Places</h1>
       </div>
       <div className='results'>
@@ -119,10 +121,10 @@ const MyPlaces = ({ getUser, userID, user, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  userID: state.auth.user._id,
-  user: state.user,
-  loading: state.user.loading,
-});
+// const mapStateToProps = (state) => ({
+//   userID: state.auth.user._id,
+//   user: state.user,
+//   loading: state.user.loading,
+// });
 
-export default connect(mapStateToProps, { getUser })(MyPlaces);
+export default MyPlaces;
