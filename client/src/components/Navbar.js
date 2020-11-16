@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
 import SlideNavbar from './SlideNavbar';
 
 import { logout } from '../actions/auth-actions';
@@ -92,11 +91,18 @@ const NavbarWrapper = styled.div`
   }
 `;
 
-const Navbar = ({ isAuth, logout }) => {
+const Navbar = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = auth;
   return (
     <nav>
-      <SlideNavbar className='mobile-nav' isAuth={isAuth} logout={logout} />
+      <SlideNavbar
+        className='mobile-nav'
+        isAuth={isAuthenticated}
+        logout={() => dispatch(logout())}
+      />
       <NavbarWrapper>
         <div className='nav-left'>
           <Link to='/'>
@@ -112,15 +118,15 @@ const Navbar = ({ isAuth, logout }) => {
               <Link to='/'>Home</Link>
             </li>
             <li className='nav-link'>
-              {isAuth ? (
+              {isAuthenticated ? (
                 <Link to='/my-places'>My Places</Link>
               ) : (
                 <Link to='/login'>Login</Link>
               )}
             </li>
-            {isAuth && (
+            {isAuthenticated && (
               <li className='nav-link'>
-                <button className='link' onClick={() => logout()}>
+                <button className='link' onClick={() => dispatch(logout())}>
                   Logout
                 </button>
               </li>
@@ -137,9 +143,9 @@ const Navbar = ({ isAuth, logout }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuth: state.auth.isAuthenticated,
-  user: state.auth.user,
-});
+// const mapStateToProps = (state) => ({
+//   isAuth: state.auth.isAuthenticated,
+//   user: state.auth.user,
+// });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default Navbar;

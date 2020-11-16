@@ -18,12 +18,7 @@ import Search from './pages/Search';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 
-import { getAuth } from './actions/auth-actions';
-
 const App = () => {
-  useEffect(() => {
-    store.dispatch(getAuth());
-  }, []);
   return (
     <Provider store={store}>
       <Theme>

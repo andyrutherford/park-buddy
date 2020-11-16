@@ -1,8 +1,8 @@
 const initialState = {
-  isAuthenticated: false,
-  user: {
-    savedPlaces: [],
-  },
+  isAuthenticated: localStorage.getItem('userInfo') ? true : false,
+  user: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : {},
   error: '',
   loading: true,
 };
@@ -22,6 +22,21 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         user: {},
         error: action.payload,
+        loading: false,
+      };
+    case 'LOGIN_AUTH_SUCCESS':
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        error: '',
+      };
+    case 'LOGOUT':
+      localStorage.removeItem('userInfo');
+      return {
+        isAuthenticated: false,
+        user: {},
+        error: '',
         loading: false,
       };
     case 'SAVE_PARK':

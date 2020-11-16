@@ -39,10 +39,11 @@ const AuthWrapper = styled.div`
   }
 `;
 
-const Auth = ({ isAuthenticated }) => {
+const Auth = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const { isAuthenticated } = auth;
   const [formData, setFormData] = useState({
     username: 'jerry',
     password: '123456',

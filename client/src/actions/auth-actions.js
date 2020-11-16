@@ -3,48 +3,55 @@ import axios from 'axios';
 import { getHeaders } from '../utils/api';
 
 export const logout = () => async (dispatch) => {
-  window.open(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`, '_self');
-  dispatch({ type: 'LOGOUT_USER' });
+  dispatch({ type: 'LOGOUT' });
+  toast('You have successfully logged out.');
 };
 
-export const getAuth = () => async (dispatch) => {
-  // fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/success`, getHeaders)
-  //   .then((response) => {
-  //     if (response.status === 200) return response.json();
-  //     throw new Error('failed to authenticate user');
-  //   })
-  //   .then((responseJson) => {
-  //     dispatch({ type: 'AUTH_SUCCESS', payload: responseJson.user });
-  //     toast.success('You have successfully logged in.');
-  //   })
-  //   .catch((error) => {
-  //     dispatch({ type: 'AUTH_FAIL', payload: 'User authentication failed' });
-  //   });
+// export const getAuth = () => async (dispatch) => {
+//   // fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/success`, getHeaders)
+//   //   .then((response) => {
+//   //     if (response.status === 200) return response.json();
+//   //     throw new Error('failed to authenticate user');
+//   //   })
+//   //   .then((responseJson) => {
+//   //     dispatch({ type: 'AUTH_SUCCESS', payload: responseJson.user });
+//   //     toast.success('You have successfully logged in.');
+//   //   })
+//   //   .catch((error) => {
+//   //     dispatch({ type: 'AUTH_FAIL', payload: 'User authentication failed' });
+//   //   });
 
-  try {
-    const res = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/auth/success`,
-      { withCredentials: true }
-    );
-    if (res.status === 200) {
-      dispatch({ type: 'AUTH_SUCCESS', payload: res.data.user });
-      toast.success('You have successfully logged in.');
-    }
-  } catch (error) {
-    dispatch({ type: 'AUTH_FAIL', payload: 'User authentication failed' });
-  }
-};
+//   try {
+//     const res = await axios.get(
+//       `${process.env.REACT_APP_BACKEND_URL}/auth/success`,
+//       { withCredentials: true }
+//     );
+//     if (res.status === 200) {
+//       dispatch({ type: 'AUTH_SUCCESS', payload: res.data.user });
+//       toast.success('You have successfully logged in.');
+//     }
+//   } catch (error) {
+//     dispatch({ type: 'AUTH_FAIL', payload: 'User authentication failed' });
+//   }
+// };
 
 export const login = ({ username, password }) => async (dispatch) => {
-  dispatch({ type: 'START_LOGIN_AUTH' });
+  dispatch({ type: 'LOGIN_AUTH_REQUEST' });
 
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
-    {
-      username,
-      password,
-    }
-  );
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
+      {
+        username,
+        password,
+      }
+    );
+    dispatch({ type: 'LOGIN_AUTH_SUCCESS', payload: data });
+    localStorage.setItem('userInfo', JSON.stringify(data));
+    toast.success('You have successfully logged in.');
+  } catch (error) {
+    dispatch({ type: 'LOGIN_AUTH_FAIL' });
+  }
 };
 
 export const signup = ({ username, password }) => async (dispatch) => {
