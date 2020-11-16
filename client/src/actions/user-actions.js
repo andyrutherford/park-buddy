@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import { getHeaders } from '../utils/api';
@@ -43,4 +44,22 @@ export const addPark = (data) => async (dispatch) => {
       );
     })
     .catch((err) => console.log(err.message));
+};
+
+export const getSavedParks = () => async (dispatch, getState) => {
+  console.log('getsavedparks');
+  const { auth } = getState();
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth.user.token}`,
+    },
+  };
+
+  try {
+    const { data } = axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/user/${auth.user.username}/parks`,
+      config
+    );
+  } catch (error) {}
 };

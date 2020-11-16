@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchPark } from '../utils/fetch';
 import SaveButton from '../components/UI/SaveButton';
@@ -9,7 +9,7 @@ import { RoundButtonWrapper } from '../components/UI/RoundButton';
 import ImageCard from '../components/cards/ImageCard';
 import Spinner from '../components/UI/Spinner';
 
-import { addPark } from '../actions/user-actions';
+import { getSavedParks, addPark } from '../actions/user-actions';
 
 import { ReactComponent as Arrow } from '../assets/svg/right-arrow.svg';
 import { ReactComponent as NotFound } from '../assets/svg/notfound.svg';
@@ -255,7 +255,8 @@ const ParkWrapper = styled.div`
   }
 `;
 
-const Park = ({ addPark, authUser, isAuthenticated }) => {
+const Park = () => {
+  const dispatch = useDispatch();
   const { parkId } = useParams();
   const [loading, setLoading] = useState(true);
   const [parkInfo, setParkInfo] = useState({
@@ -267,6 +268,8 @@ const Park = ({ addPark, authUser, isAuthenticated }) => {
     state: '',
   });
   const [saved, setSaved] = useState(false);
+  const auth = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = auth;
 
   useEffect(() => {
     fetchPark(parkId)
@@ -327,25 +330,29 @@ const Park = ({ addPark, authUser, isAuthenticated }) => {
   }, [parkId]);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      if (authUser.savedPlaces.includes(parkId)) {
-        setSaved(true);
-      } else setSaved(false);
-    }
-  }, [authUser.savedPlaces, loading, parkId, isAuthenticated]);
+    dispatch(getSavedParks());
+  }, [isAuthenticated]);
 
-  const onSaveHandler = () => {
-    if (!isAuthenticated) return alert('Please log in to save this park');
-    addPark({ userId: authUser._id, parkId: parkInfo.code });
-    setSaved(!saved);
-  };
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     if (authUser.savedPlaces.includes(parkId)) {
+  //       setSaved(true);
+  //     } else setSaved(false);
+  //   }
+  // }, [authUser.savedPlaces, loading, parkId, isAuthenticated]);
+
+  // const onSaveHandler = () => {
+  //   if (!isAuthenticated) return alert('Please log in to save this park');
+  //   addPark({ userId: authUser._id, parkId: parkInfo.code });
+  //   setSaved(!saved);
+  // };
 
   if (loading) return <Spinner />;
 
   return (
     <ParkWrapper bg1={parkInfo.images[0] ? parkInfo.images[0].url : '404'}>
       <div className='header'>
-        <SaveButton saved={saved} onSave={onSaveHandler} />
+        {/* <SaveButton saved={saved} onSave={onSaveHandler} /> */}
         <h1 className='name'>{parkInfo.name}</h1>
         <p className='state'>{parkInfo.designation}</p>
       </div>
@@ -481,4 +488,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { addPark })(Park);
+export default Park;

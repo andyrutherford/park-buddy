@@ -80,15 +80,9 @@ app.use(passport.session());
 // Passport config
 require('./config/passport')(passport);
 
-var ensureAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else res.status(401).send('You must be logged in to complete this action.');
-};
-
 // Routes
 app.use('/auth', auth);
-app.use('/user', ensureAuthenticated, user);
+app.use('/user', user);
 
 const PORT = process.env.PORT || 5000;
 

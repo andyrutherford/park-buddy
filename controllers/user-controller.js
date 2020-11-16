@@ -26,6 +26,11 @@ exports.getUser = async (req, res, next) => {
   }
 };
 
+exports.getUserParks = async (req, res, next) => {
+  console.log(req.user);
+  res.send('user parks');
+};
+
 exports.addPark = async (req, res, next) => {
   try {
     let user = await User.findById(req.body.userId);
