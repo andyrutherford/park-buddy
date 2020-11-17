@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { toast } from 'react-toastify';
 import { fetchPark } from '../utils/fetch';
 import SaveButton from '../components/UI/SaveButton';
 import { RoundButtonWrapper } from '../components/UI/RoundButton';
@@ -331,8 +331,10 @@ const Park = () => {
   }, [parkId]);
 
   useEffect(() => {
-    dispatch(getSavedParks());
-  }, [isAuthenticated]);
+    if (isAuthenticated) {
+      dispatch(getSavedParks());
+    }
+  }, [dispatch, isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -343,7 +345,7 @@ const Park = () => {
   }, [user.savedParks, loading, parkId, isAuthenticated]);
 
   const onSaveHandler = () => {
-    if (!isAuthenticated) return alert('Please log in to save this park');
+    if (!isAuthenticated) return toast.error('Please log in to save this park');
     dispatch(savePark(parkInfo.code));
     setSaved(!saved);
   };
@@ -483,10 +485,5 @@ const Park = () => {
     </ParkWrapper>
   );
 };
-
-const mapStateToProps = (state) => ({
-  authUser: state.auth.user,
-  isAuthenticated: state.auth.isAuthenticated,
-});
 
 export default Park;

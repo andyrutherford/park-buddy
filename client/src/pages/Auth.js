@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 
 import { login, signup } from '../actions/auth-actions';
 
@@ -40,7 +40,6 @@ const AuthWrapper = styled.div`
 `;
 
 const Auth = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const { isAuthenticated } = auth;
@@ -82,7 +81,7 @@ const Auth = () => {
     setSignupMode(!signupMode);
   };
 
-  if (isAuthenticated) history.push('/');
+  if (isAuthenticated) return <Redirect to='/' />;
 
   return (
     <AuthWrapper>

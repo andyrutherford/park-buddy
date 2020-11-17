@@ -76,7 +76,7 @@ const MyPlaces = ({ loading }) => {
 
   useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setLocalLoading(false);

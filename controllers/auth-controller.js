@@ -40,7 +40,7 @@ exports.signup = async (req, res, next) => {
   if (userExists) {
     res.status(400);
     // throw new Error('User already exists.  Please log in.');
-    return res.send('User already exists');
+    return res.status(401).send('User already exists');
   }
   const user = await User.create({
     username,

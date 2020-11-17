@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as SearchIcon } from '../assets/svg/search.svg';
 import background from '../assets/img/landing-bg2.jpg';
 import parkPlaceholder from '../assets/img/park-placeholder.jpg';
 
 import Spinner from '../components/UI/Spinner';
 import ParkCard from '../components/cards/ParkCard';
-import { fetchSearchParks } from '../utils/fetch';
+import { fetchSearchParks, fetchRandomPark } from '../utils/fetch';
 
 const SearchWrapper = styled.div`
   color: #fff;
@@ -19,6 +19,11 @@ const SearchWrapper = styled.div`
   h1 {
     font-size: 5em;
     text-align: center;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
   }
 
   form {
@@ -41,8 +46,8 @@ const SearchWrapper = styled.div`
     font-size: 1.25em;
   }
 
-  form .btn {
-    height: 100%;
+  .btn {
+    height: 60px;
     width: 6em;
     border-top-left-radius: 0px;
     border-top-right-radius: 5px;
@@ -53,11 +58,11 @@ const SearchWrapper = styled.div`
     transition: background-color 150ms ease-in-out;
   }
 
-  form .btn:hover {
+  .btn:hover {
     background-color: rgba(255, 255, 255, 0.35);
   }
 
-  form .btn svg {
+  .btn svg {
     height: 40%;
     width: 40%;
     margin: 0 1.5em;
@@ -65,8 +70,16 @@ const SearchWrapper = styled.div`
     transition: transform 150ms ease-in-out;
   }
 
-  form .btn:hover svg {
+  .btn:hover svg {
     transform: scale(1.1);
+  }
+
+  .explore-btn {
+    margin: auto;
+    color: #fff;
+    border-radius: 5px;
+    width: 120px;
+    font-size: 1.125rem;
   }
 
   .results {
@@ -103,6 +116,7 @@ const SearchWrapper = styled.div`
 `;
 
 const Search = () => {
+  const history = useHistory();
   const resultsToShow = 8;
   const [limit, setLimit] = useState(resultsToShow);
   const [query, setQuery] = useState('');
@@ -133,6 +147,10 @@ const Search = () => {
     }
   };
 
+  const surpriseMeHandler = () => {
+    fetchRandomPark().then((res) => history.push(`/park/${res.parkCode}`));
+  };
+
   return (
     <SearchWrapper>
       <div className='header'>
@@ -146,6 +164,11 @@ const Search = () => {
             <SearchIcon />
           </button>
         </form>
+        {query.length === 0 && (
+          <button onClick={surpriseMeHandler} className='btn explore-btn'>
+            Surprise me
+          </button>
+        )}
       </div>
       {loading ? (
         <Spinner />

@@ -95,7 +95,8 @@ const Navbar = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const { isAuthenticated, user } = auth;
+  const { isAuthenticated } = auth;
+
   return (
     <nav>
       <SlideNavbar
@@ -126,7 +127,10 @@ const Navbar = () => {
             </li>
             {isAuthenticated && (
               <li className='nav-link'>
-                <button className='link' onClick={() => dispatch(logout())}>
+                <button
+                  className='link'
+                  onClick={(history) => dispatch(logout(history))}
+                >
                   Logout
                 </button>
               </li>
@@ -142,10 +146,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
-// const mapStateToProps = (state) => ({
-//   isAuth: state.auth.isAuthenticated,
-//   user: state.auth.user,
-// });
 
 export default Navbar;

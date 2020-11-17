@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-import { getHeaders } from '../utils/api';
+// import { getHeaders } from '../utils/api';
 
 export const getUser = () => async (dispatch, getState) => {
   console.log('get user');
@@ -86,7 +86,7 @@ export const getSavedParks = () => async (dispatch, getState) => {
       `${process.env.REACT_APP_BACKEND_URL}/user/${auth.user.username}/parks`,
       config
     );
-    dispatch({ type: 'GET_SAVED_PARKS_SUCCESS', payload: data.savedPlaces });
+    dispatch({ type: 'GET_SAVED_PARKS_SUCCESS', payload: data.savedParks });
   } catch (error) {
     console.log(error);
   }
