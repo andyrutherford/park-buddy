@@ -5,7 +5,7 @@ import axios from 'axios';
 export const logout = () => async (dispatch) => {
   dispatch({ type: 'LOGOUT' });
   toast('You have successfully logged out.');
-  window.location.href = '/';
+  // window.location.href = '/';
 };
 
 export const login = ({ username, password }) => async (dispatch) => {

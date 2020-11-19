@@ -341,7 +341,7 @@ const Park = () => {
       if (user.savedParks.includes(parkId)) {
         setSaved(true);
       } else setSaved(false);
-    }
+    } else setSaved(false);
   }, [user.savedParks, loading, parkId, isAuthenticated]);
 
   const onSaveHandler = () => {

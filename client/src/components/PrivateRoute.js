@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import Spinner from '../components/UI/Spinner';
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
-  console.log(isAuthenticated, loading);
   return (
     <Route
       {...rest}

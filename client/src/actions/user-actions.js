@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 // import { getHeaders } from '../utils/api';
 
 export const getUser = () => async (dispatch, getState) => {
-  console.log('get user');
   const { auth } = getState();
 
   const config = {
@@ -60,10 +59,10 @@ export const savePark = (parkId) => async (dispatch, getState) => {
       config
     );
     console.log(data);
-    dispatch({ type: 'SAVE_PARK_SUCCESS', payload: data.savedPlaces });
+    dispatch({ type: 'SAVE_PARK_SUCCESS', payload: data.savedParks });
     toast.success(
       `You have ${
-        !data.savedPlaces.includes(parkId) ? ' unsaved' : ' saved'
+        !data.savedParks.includes(parkId) ? ' unsaved' : ' saved'
       } this park.`
     );
   } catch (error) {
