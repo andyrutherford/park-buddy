@@ -467,7 +467,12 @@ const Park = () => {
         </div>
         <div className='map'>
           {parkInfo.location.lat !== '' && parkInfo.location.lng !== '' ? (
-            <Map coordinates={parkInfo.location} />
+            <Map
+              coordinates={{
+                latitude: parkInfo.location.lat,
+                longitude: parkInfo.location.lng,
+              }}
+            />
           ) : (
             <h3
               style={{
