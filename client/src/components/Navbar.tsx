@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SlideNavbar from './SlideNavbar';
+import { Dispatch } from 'redux';
 
 import { logout } from '../actions/auth-actions';
 
 import { ReactComponent as LogoIcon } from '../assets/svg/trees.svg';
 import { ReactComponent as SearchIcon } from '../assets/svg/search.svg';
+import { RootState } from '../reducers';
 
 const NavbarWrapper = styled.div`
   background: #333;
@@ -91,10 +93,10 @@ const NavbarWrapper = styled.div`
   }
 `;
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  const dispatch: Dispatch<any> = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
   const { isAuthenticated } = auth;
 
   return (
@@ -127,10 +129,7 @@ const Navbar = () => {
             </li>
             {isAuthenticated && (
               <li className='nav-link'>
-                <button
-                  className='link'
-                  onClick={(history) => dispatch(logout(history))}
-                >
+                <button className='link' onClick={() => dispatch(logout())}>
                   Logout
                 </button>
               </li>

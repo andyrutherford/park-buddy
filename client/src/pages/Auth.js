@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
+import { toast } from 'react-toastify';
 
 import { login, signup } from '../actions/auth-actions';
 
 import background from '../assets/img/landing-bg2.jpg';
 
 import { LoginForm } from '../components/UI/LoginForm';
-import {
-  LoginWithFacebookButton,
-  LoginWithGoogleButton,
-  LoginWithGithubButton,
-} from '../components/UI/LoginWithButton';
+// import {
+//   LoginWithFacebookButton,
+//   LoginWithGoogleButton,
+//   LoginWithGithubButton,
+// } from '../components/UI/LoginWithButton';
 
 const AuthWrapper = styled.div`
   display: flex;
@@ -22,6 +23,12 @@ const AuthWrapper = styled.div`
   height: 100%;
   color: #fff;
   height: 90vh;
+
+  hr {
+    width: 280px;
+    border: none;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.8);
+  }
 
   .page-background {
     background-image: url(${background});
@@ -36,6 +43,18 @@ const AuthWrapper = styled.div`
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;
+  }
+
+  .btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #fff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.2em;
+    margin: 0.5em auto;
+    padding: 0.5em 1em;
   }
 `;
 
@@ -60,8 +79,15 @@ const Auth = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (signupMode) {
+      if (
+        formData.username === '' ||
+        formData.password === '' ||
+        formData.confirmPassword === ''
+      ) {
+        return toast.error('All form fields are required.');
+      }
       if (formData.password !== formData.confirmPassword) {
-        return alert('The passwords must match');
+        return toast.error('The passwords do not match.');
       }
       dispatch(
         signup({
@@ -117,10 +143,13 @@ const Auth = () => {
           {signupMode ? 'Create Account' : 'Log In'}
         </button>
       </LoginForm>
-      <button onClick={toggleSignup}>Sign up</button>
-      <LoginWithGithubButton className='login-with' type='github' />
+      <hr />
+      <button className='btn' onClick={toggleSignup}>
+        {!signupMode ? 'Sign up' : 'Log in'}
+      </button>
+      {/* <LoginWithGithubButton className='login-with' type='github' />
       <LoginWithFacebookButton className='login-with' type='facebook' />
-      <LoginWithGoogleButton className='login-with' type='google' />
+      <LoginWithGoogleButton className='login-with' type='google' /> */}
 
       <div className='page-background'></div>
     </AuthWrapper>

@@ -58,7 +58,6 @@ export const savePark = (parkId) => async (dispatch, getState) => {
       { parkId },
       config
     );
-    console.log(data);
     dispatch({ type: 'SAVE_PARK_SUCCESS', payload: data.savedParks });
     toast.success(
       `You have ${

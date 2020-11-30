@@ -86,7 +86,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 `;
 
-const SlideNavbar = ({ isAuth, logout }) => {
+type Props = {
+  isAuth: boolean;
+  logout: () => void;
+  className?: string;
+};
+
+const SlideNavbar: React.FC<Props> = ({ isAuth, logout }) => {
   return (
     <MenuWrapper>
       <Menu right width={250}>
