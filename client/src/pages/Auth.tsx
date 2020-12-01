@@ -9,11 +9,10 @@ import { login, signup } from '../actions/auth-actions';
 import background from '../assets/img/landing-bg2.jpg';
 
 import { LoginForm } from '../components/UI/LoginForm';
-// import {
-//   LoginWithFacebookButton,
-//   LoginWithGoogleButton,
-//   LoginWithGithubButton,
-// } from '../components/UI/LoginWithButton';
+import { RootState } from '../reducers';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
+import { stringify } from 'querystring';
 
 const AuthWrapper = styled.div`
   display: flex;
@@ -59,24 +58,29 @@ const AuthWrapper = styled.div`
 `;
 
 const Auth = () => {
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, {}, Action<string>>>();
+  const auth = useSelector((state: RootState) => state.auth);
   const { isAuthenticated } = auth;
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    username: string;
+    password: string;
+    confirmPassword: string;
+  }>({
     username: 'jerry',
     password: '123456',
     confirmPassword: '',
   });
-  const [signupMode, setSignupMode] = useState(false);
+  const [signupMode, setSignupMode] = useState<boolean>(false);
 
-  const onInputChange = (e) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (signupMode) {
       if (
@@ -147,18 +151,10 @@ const Auth = () => {
       <button className='btn' onClick={toggleSignup}>
         {!signupMode ? 'Sign up' : 'Log in'}
       </button>
-      {/* <LoginWithGithubButton className='login-with' type='github' />
-      <LoginWithFacebookButton className='login-with' type='facebook' />
-      <LoginWithGoogleButton className='login-with' type='google' /> */}
 
       <div className='page-background'></div>
     </AuthWrapper>
   );
 };
-
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-//   authUser: state.auth.isAuthenticated,
-// });
 
 export default Auth;

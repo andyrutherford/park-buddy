@@ -1957,6 +1957,13 @@
     "@types/prop-types" "*"
     "csstype" "^3.0.2"
 
+"@types/redux-thunk@^2.1.0":
+  "integrity" "sha1-vCtulylhgxr7gqm/TwZybjUflBY="
+  "resolved" "https://registry.npmjs.org/@types/redux-thunk/-/redux-thunk-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "redux-thunk" "*"
+
 "@types/redux@^3.6.0":
   "integrity" "sha1-8evh5UEVGAcuT9/KXHbhbnTBOZo="
   "resolved" "https://registry.npmjs.org/@types/redux/-/redux-3.6.0.tgz"
@@ -10000,7 +10007,7 @@
   "resolved" "https://registry.npmjs.org/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz"
   "version" "2.13.8"
 
-"redux-thunk@^2.3.0":
+"redux-thunk@*", "redux-thunk@^2.3.0":
   "integrity" "sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw=="
   "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.3.0.tgz"
   "version" "2.3.0"
