@@ -36,7 +36,6 @@ type Props = {
 };
 
 const Map: React.FC<Props> = ({ coordinates }) => {
-  console.log(coordinates);
   const [viewport, setViewport] = useState<ViewPort>({
     latitude: Number(coordinates.latitude),
     longitude: Number(coordinates.longitude),
