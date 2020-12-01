@@ -4,9 +4,9 @@ import styled from 'styled-components';
 const ImageCardWrapper = styled.div`
   position: relative;
   transition: transform 150ms ease-in-out;
-  height:100%;
+  height: 100%;
   width: 100%;
-  font-size: .75em;
+  font-size: 0.75em;
 
   :hover .info {
     opacity: 1;
@@ -43,15 +43,18 @@ const ImageCardWrapper = styled.div`
   }
 `;
 
-const ImageCard = ({
-  img, desc
-}) => {
+type Props = {
+  img: string;
+  desc: string;
+};
+
+const ImageCard: React.FC<Props> = ({ img, desc }) => {
   return (
     <ImageCardWrapper>
       <div className='info'>
         <p className='name'>{desc}</p>
-      </div>      
-        <img src={img} alt={desc} />
+      </div>
+      <img src={img} alt={desc} />
     </ImageCardWrapper>
   );
 };

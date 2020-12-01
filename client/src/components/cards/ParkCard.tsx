@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-const ParkCardWrapper = styled.div`
+const ParkCardWrapper = styled.div<{ bg?: string }>`
   height: 250px;
   width: 250px;
   padding: 1em;
@@ -48,7 +48,14 @@ const ParkCardWrapper = styled.div`
   }
 `;
 
-const ParkCard = ({ name, img, location, parkCode }) => {
+type Props = {
+  name: string;
+  img: string;
+  location: string;
+  parkCode: string;
+};
+
+const ParkCard: React.FC<Props> = ({ name, img, location, parkCode }) => {
   const history = useHistory();
 
   return (

@@ -48,7 +48,16 @@ const LandingCardWrapper = styled.div`
   }
 `;
 
-const LandingCard = ({ park }) => {
+type Props = {
+  park: {
+    name: string;
+    address: string;
+    parkCode: string;
+    images: { url: string; altText: string }[];
+  };
+};
+
+const LandingCard: React.FC<Props> = ({ park }) => {
   return (
     <LandingCardWrapper>
       <div className='info'>
